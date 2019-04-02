@@ -1,0 +1,5 @@
+Based on data from WordSet-dictionary
+Based on data from https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt
+
+Modified to exclude sentences, dialects, two-part words (heightens in them), and words less than 3 characters.
+
