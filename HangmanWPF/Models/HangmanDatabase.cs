@@ -34,7 +34,7 @@ namespace HangmanWPF.Models
         {
             string connectionString;
 
-            connectionString = "Data Source=C:\\Users\\knubb\\OneDrive\\Dokument\\Visual Studio 2017\\Projects\\HangmanWPF\\HangmanWPF\\HangmanData\\HangmanDataBase.db;Version=3";
+            connectionString = "Data Source=C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\HangmanDataBase.db;Version=3";
 
             _Connection = new SQLiteConnection(connectionString);
         }

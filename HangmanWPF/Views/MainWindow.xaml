@@ -65,7 +65,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Row="1" Grid.RowSpan="2" Margin="15" HorizontalAlignment="Center" MaxWidth="80"
+        <ItemsControl Grid.Row="2"  Margin="15" HorizontalAlignment="Center" MaxWidth="80"
                       ItemTemplate="{StaticResource LetterButtonTemplate}"
                       ItemsSource="{StaticResource Letters}"
                       x:Name="LettersPanel">
@@ -93,10 +93,18 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="52"
+
+        <Image Grid.Column="1" Grid.Row="2" Source="{Binding StateAsImage}"></Image>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"
                    Text="Tries Left:"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120" FontSize="52"
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,5,0" FontSize="20"
                    Text="{Binding TriesLeft}"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>

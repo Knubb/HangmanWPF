@@ -107,9 +107,11 @@
     </Compile>
     <Compile Include="Models\GameManager.cs" />
     <Compile Include="Models\HangmanDatabase.cs" />
+    <Compile Include="ViewModels\LetterViewModel.cs" />
     <Compile Include="Models\WordFetcher.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\GameManagerVM.cs" />
+    <Compile Include="ViewModels\NewGameManagerVM.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
