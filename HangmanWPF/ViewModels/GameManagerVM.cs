@@ -4,20 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace HangmanWPF.ViewModels
 {
-
-    //TODO:  Display all instances of correctly guessed letter.
-
-
+    
     public class GameManagerVM : BaseViewModel
     {
+        private Queue<BitmapImage> _ProgressImages = new Queue<BitmapImage>();
 
         private List<string> _Alphabet;
 
@@ -37,13 +38,28 @@ namespace HangmanWPF.ViewModels
             set
             {
                 _TriesLeft = value;
-                this.OnNotifyPropertyChanged(this, nameof(TriesLeft));
+                this.NotifyPropertyChanged(this, nameof(TriesLeft));
             }
         }
 
         public int TotalTries { get; set; }
 
-        private int MaxWordSize { get; set; }
+
+
+        private BitmapImage _StateAsImage;
+        public BitmapImage StateAsImage
+        {
+            get
+            {
+                return _StateAsImage;
+            }
+            set
+            {
+                _StateAsImage = value;
+                this.NotifyPropertyChanged(this, nameof(StateAsImage));
+            }
+        }
+
 
         public ICommand GuessLetterCmnd { get; set; }
 
@@ -53,6 +69,7 @@ namespace HangmanWPF.ViewModels
             GuessLetterCmnd = new GuessLetterCommand(this.GuessLetter, this.CanGuessLetter);
 
             SetupRound();
+
         }
 
         public void SetupRound()
@@ -67,6 +84,15 @@ namespace HangmanWPF.ViewModels
 
             UserGuessedLetters = new ObservableCollection<string>();
 
+            _ProgressImages.Clear();
+
+            //Load our images into the queue
+            foreach (var item in this.LoadImagesInFolder("C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\Images"))
+            {
+                _ProgressImages.Enqueue(item);
+            };
+
+            //Add heightens to mask out the word
             for (int i = 0; i < WordToGuess.Length; i++)
             {
                 this.UserGuessedLetters.Add("-");
@@ -95,6 +121,7 @@ namespace HangmanWPF.ViewModels
             {
                 TriesLeft -= 1;
                 _Alphabet.Remove(character);
+                SetNextImage();
             }
         }
 
@@ -107,6 +134,18 @@ namespace HangmanWPF.ViewModels
             else
             {
                 return false;
+            }
+        }
+
+        private void SetNextImage()
+        {
+            try
+            {
+                StateAsImage = _ProgressImages.Dequeue();
+            }
+            catch (Exception)
+            {
+                SetupRound();
             }
         }
 
@@ -124,6 +163,21 @@ namespace HangmanWPF.ViewModels
             }
 
             return res.ToArray();
+        }
+
+        private IEnumerable<BitmapImage> LoadImagesInFolder(string folderpath)
+        {
+            List<BitmapImage> images = new List<BitmapImage>();
+
+            
+
+            foreach (var filepath in Directory.GetFiles(folderpath))
+            {
+                images.Add(new BitmapImage(new Uri(filepath, UriKind.Absolute)));
+            }
+
+
+            return images;
         }
     }
 }

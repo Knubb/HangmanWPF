@@ -22,13 +22,13 @@ namespace HangmanWPF
     public partial class MainWindow : Window
     {
 
-        GameManagerVM vm;
+        HangmanGameVM vm;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            vm = new GameManagerVM();
+            vm = new HangmanGameVM();
 
             this.DataContext = vm;
         }

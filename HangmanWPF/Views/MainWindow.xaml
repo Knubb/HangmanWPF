@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:HangmanWPF.Converters"
+        xmlns:en="clr-namespace:HangmanWPF.ViewModels"
         xmlns:local="clr-namespace:HangmanWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
 
     <Window.Resources>
+
+        <conv:CharacterToStringConverter x:Key="CharToString"/>
 
         <Style TargetType="{x:Type ToggleButton}" x:Key="LetterButtons">
             <Setter Property="Background" Value="CornflowerBlue"/>
@@ -32,12 +36,14 @@
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="BorderThickness" Value="2" />
                             </Trigger>
-                            <Trigger Property="IsChecked" Value="True">
+                            <DataTrigger Binding="{Binding Path=State}" Value="1">
                                 <Setter Property="Background" Value="Green"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=State}" Value="2">
                                 <Setter Property="Background" Value="Red"/>
-                            </Trigger>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                            </DataTrigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
@@ -46,10 +52,10 @@
 
 
         <DataTemplate x:Key="LetterButtonTemplate">
-            <ToggleButton  Width="30" Height="30" Content="{Binding}"
+            <ToggleButton  Width="30" Height="30" Content="{Binding Path=Letter, Converter={StaticResource CharToString}}"
                      Style="{StaticResource LetterButtons}"
                      Command="{Binding ElementName=LettersPanel, Path=DataContext.GuessLetterCmnd}"
-                     CommandParameter="{Binding}"/>
+                     CommandParameter="{Binding Path=Letter}"/>
             </DataTemplate>
 
         </Window.Resources>
@@ -65,9 +71,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Row="1" Grid.RowSpan="2" Margin="15" HorizontalAlignment="Center" MaxWidth="80"
+        <ItemsControl Grid.Row="2"  Margin="15" HorizontalAlignment="Center" MaxWidth="80"
                       ItemTemplate="{StaticResource LetterButtonTemplate}"
-                      ItemsSource="{StaticResource Letters}"
+                      ItemsSource="{Binding LettersCollection}"
                       x:Name="LettersPanel">
 
             <ItemsControl.ItemsPanel>
@@ -77,26 +83,31 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <ItemsControl Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
-                      ItemsSource="{Binding UserGuessedLetters}"
+
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
+                   Width="auto" Height="auto" FontSize="32" Padding="2"
+                      Text="{Binding Word}"
+                      x:Name="CheatBox">
+        </TextBlock>
+        
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
+                   Width="auto" Height="auto" FontSize="32" Padding="2"
+                      Text="{Binding MaskedWord}"
                       x:Name="GuessingPanel">
+        </TextBlock>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Width="auto" Height="auto" FontSize="32" Padding="2" Text="{Binding}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"></StackPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
 
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="52"
+        <Image Grid.Column="1" Grid.Row="2" Source="{Binding ProgressImage}"></Image>
+
+        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"
                    Text="Tries Left:"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="120" FontSize="52"
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,5,0" FontSize="20"
                    Text="{Binding TriesLeft}"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>

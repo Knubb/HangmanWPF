@@ -1,0 +1,11 @@
+# Refactor GameManagerViewModel and surrounding dependencies.
+Add a reset/refresh button to restart round.
+Add a start menu
+Write tests toward viewmodel
+Write tests toward database and WordFetcher
+Create a SQLite-table for images.
+Create loading of images from SQLite-database.
+
+FEATURES:
+Difficulty adjustment.
+Show meaning of words.
