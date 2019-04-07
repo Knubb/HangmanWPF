@@ -102,16 +102,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\GuessLetterCommand.cs" />
+    <Compile Include="Converters\CharacterToStringConverter.cs" />
     <Compile Include="DevWindow.xaml.cs">
       <DependentUpon>DevWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\GameManager.cs" />
+    <Compile Include="Models\HangmanRoundManager.cs" />
     <Compile Include="Models\HangmanDatabase.cs" />
+    <Compile Include="ViewModels\HangmanGameVM.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
     <Compile Include="Models\WordFetcher.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\GameManagerVM.cs" />
-    <Compile Include="ViewModels\NewGameManagerVM.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

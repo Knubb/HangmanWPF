@@ -10,15 +10,15 @@ namespace HangmanWPF.Commands
     public class GuessLetterCommand : ICommand
     {
 
-        private Action<string> methodToExecute;
-        private Func<string, bool> canExecuteEvaluator;
+        private Action<char> methodToExecute;
+        private Func<char, bool> canExecuteEvaluator;
 
-        public GuessLetterCommand(Action<string> methodToExecute, Func<string, bool> canExecuteEvaluator)
+        public GuessLetterCommand(Action<char> methodToExecute, Func<char, bool> canExecuteEvaluator)
         {
             this.methodToExecute = methodToExecute;
             this.canExecuteEvaluator = canExecuteEvaluator;
         }
-        public GuessLetterCommand(Action<string> methodToExecute)
+        public GuessLetterCommand(Action<char> methodToExecute)
             : this(methodToExecute, null)
         {
         }
@@ -29,16 +29,20 @@ namespace HangmanWPF.Commands
             {
                 return true;
             }
-            else
+
+
+            if (parameter is string s)
             {
-                bool result = this.canExecuteEvaluator.Invoke((string)parameter);
+                bool result = this.canExecuteEvaluator.Invoke(Char.Parse(s));
                 return result;
             }
+
+            return false;
         }
 
         public void Execute(object parameter)
         {
-            methodToExecute.Invoke((string)parameter);
+            methodToExecute.Invoke((char)parameter);
         }
 
 

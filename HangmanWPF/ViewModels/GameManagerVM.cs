@@ -38,7 +38,7 @@ namespace HangmanWPF.ViewModels
             set
             {
                 _TriesLeft = value;
-                this.OnNotifyPropertyChanged(this, nameof(TriesLeft));
+                this.NotifyPropertyChanged(this, nameof(TriesLeft));
             }
         }
 
@@ -56,7 +56,7 @@ namespace HangmanWPF.ViewModels
             set
             {
                 _StateAsImage = value;
-                this.OnNotifyPropertyChanged(this, nameof(StateAsImage));
+                this.NotifyPropertyChanged(this, nameof(StateAsImage));
             }
         }
 

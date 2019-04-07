@@ -11,7 +11,7 @@ namespace HangmanWPF.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected void OnNotifyPropertyChanged(object sender, string propertyname)
+        protected void NotifyPropertyChanged(object sender, string propertyname)
         {
             PropertyChanged?.Invoke(sender, new PropertyChangedEventArgs(propertyname));
         }
