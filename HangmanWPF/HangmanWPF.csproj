@@ -89,7 +89,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DevWindow.xaml">
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HangmanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -101,17 +105,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\GuessLetterCommand.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
-    <Compile Include="DevWindow.xaml.cs">
-      <DependentUpon>DevWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
     <Compile Include="Models\HangmanDatabase.cs" />
-    <Compile Include="ViewModels\HangmanGameVM.cs" />
+    <Compile Include="ViewModels\HangmanGameViewModel.cs" />
+    <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
     <Compile Include="Models\WordFetcher.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="Views\HangmanView.xaml.cs">
+      <DependentUpon>HangmanView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

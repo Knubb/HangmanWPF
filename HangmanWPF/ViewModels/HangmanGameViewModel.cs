@@ -6,18 +6,28 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace HangmanWPF.ViewModels
 {
-    public class HangmanGameVM : BaseViewModel
+    public class HangmanGameViewModel : BaseViewModel
     {
 
-        //Dev cheat
-        /*
+        #region Dev display
+
+        private string _Difficulty;
+        public string Difficulty
+        {
+            get { return _Difficulty; }
+            set
+            {
+                _Difficulty = value;
+                NotifyPropertyChanged(this, nameof(Difficulty));
+            }
+        }
+
         private string _Word;
         public string Word
         {
@@ -28,8 +38,11 @@ namespace HangmanWPF.ViewModels
                 NotifyPropertyChanged(this, nameof(Word));
             }
         }
-        */
 
+        #endregion
+
+
+        public const int Tries = 8;
         private HangmanRoundManager _RoundManager { get; set; }
 
         private Queue<BitmapImage> _ProgressImages;
@@ -63,9 +76,13 @@ namespace HangmanWPF.ViewModels
 
         public ICommand GuessLetterCmnd { get; set; }
 
-        public HangmanGameVM()
+        public ICommand NewRoundCommand { get; set; }
+
+        public HangmanGameViewModel()
         {
             GuessLetterCmnd = new GuessLetterCommand(this.GuessLetter);
+            NewRoundCommand = new ActionCommand(this.StartNewRound);
+
 
             InitializeRound();
         }
@@ -92,20 +109,19 @@ namespace HangmanWPF.ViewModels
         }
 
         private void InitializeRound()
-        {
+        {     
             InitializeRoundManager();
             InitializeMaskedWord();
             InitializeProgressImages();
             InitializeLettersCollection();
         }
 
-
         private void InitializeRoundManager()
         {
             //Setup round manager object
-            _RoundManager = new HangmanRoundManager(new WordFetcher().FetchRandomWord(), 8);
+            _RoundManager = new HangmanRoundManager(new WordFetcher().FetchRandomWord(), Tries);
 
-            //Word = _RoundManager.WordToGuess; //DEV PROP
+            Word = _RoundManager.WordToGuess; //DEV PROP
         }
 
         private void InitializeLettersCollection()
@@ -122,6 +138,7 @@ namespace HangmanWPF.ViewModels
 
         private void InitializeProgressImages()
         {
+            //TODO Throw exception if the number of images is not equal to number of tries
             _ProgressImages = new Queue<BitmapImage>();
 
             foreach (var item in this.LoadImagesInFolder("C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\Images"))
@@ -184,11 +201,11 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private void ResetRound()
+        private void StartNewRound()
         {
-            _RoundManager.StartNew(new WordFetcher().FetchRandomWord(), 8);
+            _RoundManager.StartNew(new WordFetcher().FetchRandomWord(), Tries);
 
-            //Word = _RoundManager.WordToGuess; //DEV PROP
+            Word = _RoundManager.WordToGuess; //DEV PROP
 
             foreach (var lettervm in LettersCollection)
             {
@@ -203,14 +220,14 @@ namespace HangmanWPF.ViewModels
         {
             MessageBox.Show("Round won!");
 
-            ResetRound();
+            StartNewRound();
         }
 
         private void OnRoundLost()
         {
             MessageBox.Show("Round lost");
 
-            ResetRound();
+            StartNewRound();
         }
 
         #region Helpers

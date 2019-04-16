@@ -24,16 +24,14 @@ namespace HangmanDatabaseXUnitTests
         [Fact]
         public void GetWordCountTest()
         {
-            //Prepare
+            //Arrange
             HangmanDatabase db = new HangmanDatabase();
 
-            int expected = -1;
-
-            //Run
+            //Act
             int actual = db.WordCount;
 
             //Assert
-            Assert.NotEqual(expected, actual);
+            Assert.True(actual > -1);
         }
     }
 }

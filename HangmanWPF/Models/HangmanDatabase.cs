@@ -14,7 +14,7 @@ namespace HangmanWPF.Models
         {
             get
             {
-                if (_WordCount == -1)
+                if (_WordCount < 0)
                 {
                     _WordCount = GetWordCount();
                 }

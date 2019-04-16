@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HangmanWPF.Models;
 
 namespace HangmanWPF.ViewModels
 {
-
-    public enum LetterState
-    {
-        NoGuess,
-        Correct,
-        Wrong,
-
-    }
     public class LetterViewModel : BaseViewModel
     {
 

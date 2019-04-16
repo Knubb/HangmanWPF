@@ -1,10 +1,12 @@
-# Refactor GameManagerViewModel and surrounding dependencies.
-Add a reset/refresh button to restart round.
-Add a start menu
+X Refactor GameManagerViewModel and surrounding dependencies.
+X Add a reset/refresh button to restart round.
+X Add a start menu
+X Add constructor injection to WordFetcher.cs
 Write tests toward viewmodel
 Write tests toward database and WordFetcher
 Create a SQLite-table for images.
 Create loading of images from SQLite-database.
+Add Style
 
 FEATURES:
 Difficulty adjustment.

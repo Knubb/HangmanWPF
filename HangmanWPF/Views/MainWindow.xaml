@@ -3,111 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:conv="clr-namespace:HangmanWPF.Converters"
-        xmlns:en="clr-namespace:HangmanWPF.ViewModels"
-        xmlns:local="clr-namespace:HangmanWPF"
+        xmlns:vms="clr-namespace:HangmanWPF.ViewModels"
+        xmlns:views="clr-namespace:HangmanWPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
 
     <Window.Resources>
+        
+        <!--Viewmodel instance/Call to ctor-->
+        <vms:HomeMenuViewModel x:Key="HomeMenuViewModel" />
 
-        <conv:CharacterToStringConverter x:Key="CharToString"/>
+        <DataTemplate x:Key="HomeViewTemplate" DataType="{x:Type vms:HomeMenuViewModel}">
+            <Button Width="100" Height="100" Content="Go to game"
+                    Command="{Binding NavigateToHangmanCommand}"/>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="HangmanViewTemplate" DataType="{x:Type vms:HangmanGameViewModel}">
+            <views:HangmanView />
+        </DataTemplate>
 
-        <Style TargetType="{x:Type ToggleButton}" x:Key="LetterButtons">
-            <Setter Property="Background" Value="CornflowerBlue"/>
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="0.5"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Window.Resources>
 
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToggleButton}">
-                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}">
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                       Text="{TemplateBinding Content}"/>
-
-                        </Border>
-
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderThickness" Value="2" />
-                            </Trigger>
-                            <DataTrigger Binding="{Binding Path=State}" Value="1">
-                                <Setter Property="Background" Value="Green"/>
-                                <Setter Property="IsHitTestVisible" Value="False"/>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=State}" Value="2">
-                                <Setter Property="Background" Value="Red"/>
-                                <Setter Property="IsHitTestVisible" Value="False"/>
-                            </DataTrigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-        <DataTemplate x:Key="LetterButtonTemplate">
-            <ToggleButton  Width="30" Height="30" Content="{Binding Path=Letter, Converter={StaticResource CharToString}}"
-                     Style="{StaticResource LetterButtons}"
-                     Command="{Binding ElementName=LettersPanel, Path=DataContext.GuessLetterCmnd}"
-                     CommandParameter="{Binding Path=Letter}"/>
-            </DataTemplate>
-
-        </Window.Resources>
-
-    <Grid>
+    <Grid DataContext="{StaticResource HomeMenuViewModel}">
+        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="100" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Row="2"  Margin="15" HorizontalAlignment="Center" MaxWidth="80"
-                      ItemTemplate="{StaticResource LetterButtonTemplate}"
-                      ItemsSource="{Binding LettersCollection}"
-                      x:Name="LettersPanel">
 
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"></WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <!--Home button-->
+        <Button Grid.Column="0" Grid.Row="1" Width="80" Height="100" Content="Home"
+                Command="{Binding NavigatHomeCommand}"/>
 
-
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
-                   Width="auto" Height="auto" FontSize="32" Padding="2"
-                      Text="{Binding Word}"
-                      x:Name="CheatBox">
-        </TextBlock>
         
-        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
-                   Width="auto" Height="auto" FontSize="32" Padding="2"
-                      Text="{Binding MaskedWord}"
-                      x:Name="GuessingPanel">
-        </TextBlock>
+        
+        <ContentControl Content="{Binding}" Grid.Column="1" Grid.Row="1">
 
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
 
-        <Image Grid.Column="1" Grid.Row="2" Source="{Binding ProgressImage}"></Image>
-
-        <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom"
-                    HorizontalAlignment="Right"
-                    Orientation="Horizontal">
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"
-                   Text="Tries Left:"/>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10,0,5,0" FontSize="20"
-                   Text="{Binding TriesLeft}"/>
-        </StackPanel>
-
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="0">
+                            <Setter Property="ContentTemplate" Value="{StaticResource HomeViewTemplate}" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="1">
+                            <Setter Property="ContentTemplate" Value="{StaticResource HangmanViewTemplate}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
 
     </Grid>
+
 </Window>

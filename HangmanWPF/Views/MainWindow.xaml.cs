@@ -21,16 +21,9 @@ namespace HangmanWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        HangmanGameVM vm;
-
         public MainWindow()
         {
             InitializeComponent();
-
-            vm = new HangmanGameVM();
-
-            this.DataContext = vm;
         }
     }
 }
