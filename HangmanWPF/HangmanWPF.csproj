@@ -89,7 +89,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <DesignData Include="DesignData\HangmanDesignData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
     <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Text.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -111,6 +127,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
     <Compile Include="Models\HangmanDatabase.cs" />
+    <Compile Include="Models\Interfaces.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />

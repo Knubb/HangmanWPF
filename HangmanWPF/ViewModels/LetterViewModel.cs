@@ -18,6 +18,8 @@ namespace HangmanWPF.ViewModels
             }
         }
 
+        public LetterViewModel() { }
+
         public LetterViewModel(char letter)
         {
             this.State = LetterState.NoGuess;

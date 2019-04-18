@@ -7,14 +7,40 @@
 
 
     <Style TargetType="{x:Type ButtonBase}" x:Key="ButtonBaseStyle">
-        <Setter Property="Background" Value="CornflowerBlue"/>
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="0.5"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="{StaticResource FontSizeSmall}"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
+
+
+    <Style TargetType="{x:Type Button}" x:Key="SystemButtons" BasedOn="{StaticResource ButtonBaseStyle}">
+
+        <Setter Property="Margin" Value="0,10,0,10" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       Text="{TemplateBinding Content}"/>
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="{x:Type Button}" x:Key="MenuButtons" BasedOn="{StaticResource ButtonBaseStyle}">
 

@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace HangmanWPF.Models
 {
-    public class HangmanDatabase
+    public class HangmanDatabase : IWordDataBase
     {
         private SQLiteConnection _Connection;
 

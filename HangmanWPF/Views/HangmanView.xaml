@@ -6,8 +6,10 @@
              xmlns:conv="clr-namespace:HangmanWPF.Converters"
              xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="700">
 
+ 
+    
     <UserControl.Resources>
 
         <vm:HangmanGameViewModel x:Key="HangmanViewModel"/>
@@ -24,37 +26,35 @@
 
     </UserControl.Resources>
 
-    <Grid DataContext="{StaticResource HangmanViewModel}">
-        
+    
+    <Grid DataContext="{StaticResource HangmanViewModel}"
+          d:DataContext="{d:DesignData Source=/DesignData/HangmanDesignData.xaml}">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="0,50,0,0"
+        <ItemsControl Grid.Column="1" Grid.Row="2" Margin="100,5,100,5" 
                       ItemTemplate="{StaticResource LetterButtonTemplate}"
                       ItemsSource="{Binding LettersCollection}"
                       x:Name="LettersPanel">
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical"/>
+                    <WrapPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
 
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
-                   Width="auto" Height="auto" FontSize="32" Padding="2"
-                      Text="{Binding Word}"
-                      x:Name="CheatBox">
-        </TextBlock>
+
 
         <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
                    Width="auto" Height="auto" FontSize="32" Padding="2"
@@ -65,20 +65,39 @@
 
         <Image Grid.Row="3" Grid.Column="1" Source="{Binding ProgressImage}"></Image>
 
-        <StackPanel Grid.Row="0">
-            <Button Content="Refresh"
+        <!--Top bar-->
+        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Padding="5"
+                Background="{StaticResource MainBackgroundLigthBrush}">
+
+            <Grid>
+
+                <!--Game specific buttons/info-->
+                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <Button Content="Refresh"
                     Command="{Binding Path=NewRoundCommand}"
                     Style="{StaticResource MenuButtons}"
-                    Width="80" Height="20"/>
-        </StackPanel>
-
-        <StackPanel  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Orientation="Horizontal">
-            <TextBlock Text="Difficulty: " FontSize="25"/>
-            <TextBlock Text="{Binding Path=Difficulty}" FontSize="25"/>
-        </StackPanel>
+                    Width="80" Height="30"/>
+                </StackPanel>
 
 
+                <!--DEBUG-->
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           FontSize="{StaticResource FontSizeLarge}"
+                           Text="{Binding Word}">
+                </TextBlock>
+
+                <!--DEBUG-->
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Orientation="Horizontal">
+
+                    <TextBlock Text="Difficulty: " FontSize="{StaticResource FontSizeLarge}"/>
+                    <TextBlock Text="{Binding Path=Difficulty}" FontSize="{StaticResource FontSizeLarge}"/>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+       
     </Grid>
 
 

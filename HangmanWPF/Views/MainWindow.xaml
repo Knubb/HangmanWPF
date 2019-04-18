@@ -24,6 +24,8 @@
 
     </Window.Resources>
 
+    
+    
     <Grid DataContext="{StaticResource HomeMenuViewModel}">
         
         <Grid.ColumnDefinitions>
@@ -35,28 +37,54 @@
         </Grid.RowDefinitions>
 
 
-        <!--Home button-->
-        <Button Grid.Column="0" Grid.Row="1" Width="80" Height="100" Content="Home"
-                Command="{Binding NavigatHomeCommand}"/>
+        
+        <!--Side bar-->
+        <Border Grid.Column="0" Padding="5" Background="{StaticResource MainBackgroundLigthBrush}">
 
-        
-        
-        <ContentControl Content="{Binding}" Grid.Column="1" Grid.Row="1">
+            <StackPanel VerticalAlignment="Bottom">
+                
+                <Button Style="{StaticResource SystemButtons}"
+                        Width="80" Height="50"
+                        Content="Home"
+                        Command="{Binding NavigatHomeCommand}"/>
+
+                <Button Style="{StaticResource SystemButtons}"
+                        Width="80" Height="50"
+                        Content="Settings" />
+
+                <Button Style="{StaticResource SystemButtons}"
+                        Width="80" Height="50"
+                        Content="Close" />
+
+
+            </StackPanel>
+
+        </Border>
+       
+
+
+        <!--Main content border-->
+        <Border Grid.Column="1" Grid.Row="1">
+            
+
+        <ContentControl Content="{Binding}">
 
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
 
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentPage}" Value="0">
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="1">
                             <Setter Property="ContentTemplate" Value="{StaticResource HomeViewTemplate}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPage}" Value="1">
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="0">
                             <Setter Property="ContentTemplate" Value="{StaticResource HangmanViewTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </ContentControl.Style>
         </ContentControl>
+
+        </Border>
 
     </Grid>
 

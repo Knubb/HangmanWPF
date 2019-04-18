@@ -9,13 +9,13 @@ namespace HangmanWPF.Models
     {
 
         //Query the DB for words and cache them
-        private HangmanDatabase _Database = new HangmanDatabase();
+        private IWordDataBase _Database;
         private Stack<string> _CachedWords;
 
 
-        public WordFetcher()
+        public WordFetcher(IWordDataBase worddataBase)
         {
-            _Database = new HangmanDatabase();
+            _Database = worddataBase;
 
             _CachedWords = new Stack<string>();
 

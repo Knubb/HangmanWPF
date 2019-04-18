@@ -3,6 +3,7 @@ using HangmanWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -83,7 +84,6 @@ namespace HangmanWPF.ViewModels
             GuessLetterCmnd = new GuessLetterCommand(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
 
-
             InitializeRound();
         }
 
@@ -119,7 +119,7 @@ namespace HangmanWPF.ViewModels
         private void InitializeRoundManager()
         {
             //Setup round manager object
-            _RoundManager = new HangmanRoundManager(new WordFetcher().FetchRandomWord(), Tries);
+            _RoundManager = new HangmanRoundManager(new WordFetcher(new HangmanDatabase()).FetchRandomWord(), Tries);
 
             Word = _RoundManager.WordToGuess; //DEV PROP
         }
@@ -203,7 +203,7 @@ namespace HangmanWPF.ViewModels
 
         private void StartNewRound()
         {
-            _RoundManager.StartNew(new WordFetcher().FetchRandomWord(), Tries);
+            _RoundManager.StartNew(new WordFetcher(new HangmanDatabase()).FetchRandomWord(), Tries);
 
             Word = _RoundManager.WordToGuess; //DEV PROP
 
@@ -260,7 +260,6 @@ namespace HangmanWPF.ViewModels
 
             return images;
         }
-
         #endregion
 
     }
