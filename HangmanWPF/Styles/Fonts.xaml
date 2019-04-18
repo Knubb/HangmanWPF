@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HangmanWPF.Styles"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+
+    <FontFamily x:Key="MainFont">Verdana</FontFamily>
+
+    <!-- This creates a basestyle on the lowest level to base everything on..-->
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+    </Style>
+
+    <!-- Need to create a specific style for textblock-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}" />
+
+    <system:Double x:Key="FontSizeRegular">22</system:Double>
+    <system:Double x:Key="FontSizeSmall">16</system:Double>
+    <system:Double x:Key="FontSizeLarge">30</system:Double>
+    
+    
+</ResourceDictionary>

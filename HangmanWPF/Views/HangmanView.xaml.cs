@@ -1,4 +1,5 @@
-﻿using HangmanWPF.ViewModels;
+﻿using HangmanWPF.Models;
+using HangmanWPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HangmanWPF
+namespace HangmanWPF.Views
 {
     /// <summary>
-    /// Interaction logic for DevWindow.xaml
+    /// Interaction logic for HangmanView.xaml
     /// </summary>
-    public partial class DevWindow : Window
+    public partial class HangmanView : UserControl
     {
-
-        HangmanGameVM vm;
-
-        public DevWindow()
+        public HangmanView()
         {
             InitializeComponent();
-
-            vm = new HangmanGameVM();
-
-            this.DataContext = vm;
-
-
-            
         }
     }
 }
