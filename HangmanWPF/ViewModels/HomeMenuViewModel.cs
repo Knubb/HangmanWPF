@@ -1,9 +1,5 @@
 ﻿using HangmanWPF.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HangmanWPF.ViewModels
@@ -16,7 +12,6 @@ namespace HangmanWPF.ViewModels
     }
     public class HomeMenuViewModel : BaseViewModel
     {
-
 
         private Pages _CurrentPage;
         public Pages CurrentPage
@@ -31,14 +26,24 @@ namespace HangmanWPF.ViewModels
 
         public ICommand NavigateToHangmanCommand { get; set; }
         public ICommand NavigatHomeCommand { get; set; }
+        public ICommand CloseApplicationCommand { get; set; }
 
         public HomeMenuViewModel()
         {
 
             NavigateToHangmanCommand = new ActionCommand(this.NavigateTo);
             NavigatHomeCommand = new ActionCommand(this.NavigateHome);
+            CloseApplicationCommand = new ActionCommand(this.CloseApplication);
         }
 
+
+        private void CloseApplication()
+        {
+            //TODO
+            // Refactor to some central closing mechanism so we can make sure to do all neccessary closing stuff no matter from where the app is closed
+
+            Application.Current.Shutdown();
+        }
 
         public void NavigateTo()
         {

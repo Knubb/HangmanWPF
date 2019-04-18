@@ -16,18 +16,7 @@ namespace HangmanWPF.ViewModels
     public class HangmanGameViewModel : BaseViewModel
     {
 
-        #region Dev display
-
-        private string _Difficulty;
-        public string Difficulty
-        {
-            get { return _Difficulty; }
-            set
-            {
-                _Difficulty = value;
-                NotifyPropertyChanged(this, nameof(Difficulty));
-            }
-        }
+        #region Debug display
 
         private string _Word;
         public string Word
@@ -75,8 +64,18 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        public ICommand GuessLetterCmnd { get; set; }
+        private string _Difficulty;
+        public string Difficulty
+        {
+            get { return _Difficulty; }
+            set
+            {
+                _Difficulty = value;
+                NotifyPropertyChanged(this, nameof(Difficulty));
+            }
+        }
 
+        public ICommand GuessLetterCmnd { get; set; }
         public ICommand NewRoundCommand { get; set; }
 
         public HangmanGameViewModel()

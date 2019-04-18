@@ -14,7 +14,9 @@
         <vms:HomeMenuViewModel x:Key="HomeMenuViewModel" />
 
         <DataTemplate x:Key="HomeViewTemplate" DataType="{x:Type vms:HomeMenuViewModel}">
-            <Button Width="100" Height="100" Content="Go to game"
+            <Button Style="{StaticResource MenuButtons}"
+                    Width="200" Height="100"
+                    Content="Go to Hangman"
                     Command="{Binding NavigateToHangmanCommand}"/>
         </DataTemplate>
         
@@ -54,7 +56,8 @@
 
                 <Button Style="{StaticResource SystemButtons}"
                         Width="80" Height="50"
-                        Content="Close" />
+                        Content="Close"
+                        Command="{Binding CloseApplicationCommand}"/>
 
 
             </StackPanel>
@@ -73,10 +76,10 @@
                 <Style TargetType="{x:Type ContentControl}">
 
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding CurrentPage}" Value="1">
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="0">
                             <Setter Property="ContentTemplate" Value="{StaticResource HomeViewTemplate}" />
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding CurrentPage}" Value="0">
+                        <DataTrigger Binding="{Binding CurrentPage}" Value="1">
                             <Setter Property="ContentTemplate" Value="{StaticResource HangmanViewTemplate}" />
                         </DataTrigger>
                     </Style.Triggers>

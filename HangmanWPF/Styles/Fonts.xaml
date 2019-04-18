@@ -9,7 +9,6 @@
     <!-- This creates a basestyle on the lowest level to base everything on..-->
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
         <Setter Property="FontFamily" Value="{StaticResource MainFont}"/>
-        <Setter Property="FontStyle" Value="Italic"/>
     </Style>
 
     <!-- Need to create a specific style for textblock-->
