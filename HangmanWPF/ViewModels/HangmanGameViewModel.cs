@@ -3,7 +3,6 @@ using HangmanWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -30,7 +29,6 @@ namespace HangmanWPF.ViewModels
         }
 
         #endregion
-
 
         public const int Tries = 8;
         private HangmanRoundManager _RoundManager { get; set; }
@@ -75,12 +73,12 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        public ICommand GuessLetterCmnd { get; set; }
+        public ICommand GuessLetterCommand { get; set; }
         public ICommand NewRoundCommand { get; set; }
 
         public HangmanGameViewModel()
         {
-            GuessLetterCmnd = new GuessLetterCommand(this.GuessLetter);
+            GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
 
             InitializeRound();

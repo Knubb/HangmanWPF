@@ -59,7 +59,6 @@ namespace HangmanWPF.Models
                 }
             }
 
-
             return words;
         }
 

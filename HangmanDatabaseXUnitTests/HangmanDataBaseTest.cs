@@ -5,21 +5,6 @@ namespace HangmanDatabaseXUnitTests
 {
     public class HangmanDataBaseTest
     {
-        //[Fact]
-        //public void ConnectToDataBaseTest()
-        //{
-        //    //Arrange
-        //    HangmanDatabase db = new HangmanDatabase();
-
-        //    //Act
-
-
-        //    //Assert
-
-
-
-
-        //}
 
         [Fact]
         public void GetWordCountTest()

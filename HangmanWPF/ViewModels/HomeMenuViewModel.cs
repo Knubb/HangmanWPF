@@ -10,6 +10,7 @@ namespace HangmanWPF.ViewModels
         HomeMenu,
         Hangman
     }
+
     public class HomeMenuViewModel : BaseViewModel
     {
 
@@ -30,7 +31,6 @@ namespace HangmanWPF.ViewModels
 
         public HomeMenuViewModel()
         {
-
             NavigateToHangmanCommand = new ActionCommand(this.NavigateTo);
             NavigatHomeCommand = new ActionCommand(this.NavigateHome);
             CloseApplicationCommand = new ActionCommand(this.CloseApplication);
@@ -54,6 +54,5 @@ namespace HangmanWPF.ViewModels
         {
             CurrentPage = Pages.HomeMenu;
         }
-
     }
 }
