@@ -120,14 +120,15 @@
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\ActionCommandT.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
+    <Compile Include="Models\IHangmanDataFetcher.cs" />
+    <Compile Include="Models\IImageDataFetcher.cs" />
     <Compile Include="Models\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
-    <Compile Include="Models\HangmanDatabase.cs" />
-    <Compile Include="Models\IWordDataBase.cs" />
+    <Compile Include="Models\HangmanDataFetcherSQLite.cs" />
+    <Compile Include="Models\IWordDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
-    <Compile Include="Models\WordFetcher.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\HangmanView.xaml.cs">
       <DependentUpon>HangmanView.xaml</DependentUpon>

@@ -39,6 +39,7 @@
         <!--Side bar-->
         <Border Grid.Column="0" Padding="5" Background="{StaticResource MainBackgroundLigthBrush}">
 
+
             <StackPanel VerticalAlignment="Bottom">
 
                 <Button Style="{StaticResource SystemButtons}"
@@ -55,6 +56,10 @@
                         Content="Close"
                         Command="{Binding CloseApplicationCommand}"/>
 
+                <Button Style="{StaticResource SystemButtons}" 
+                        Width="80" Height="50"
+                        Content="Insert image"
+                        Command="{Binding InsertImageCommand}"/>
 
             </StackPanel>
 

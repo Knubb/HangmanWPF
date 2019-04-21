@@ -10,7 +10,7 @@ namespace HangmanDatabaseXUnitTests
         public void GetWordCountTest()
         {
             //Arrange
-            HangmanDatabase db = new HangmanDatabase();
+            HangmanDataFetcherSQLite db = new HangmanDataFetcherSQLite();
 
             //Act
             int actual = db.WordCount;

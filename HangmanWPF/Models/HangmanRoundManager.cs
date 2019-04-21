@@ -6,13 +6,7 @@ namespace HangmanWPF.Models
     {
 
         public string WordToGuess { get; private set; }
-
-        private int _TriesLeft;
-        public int TriesLeft
-        {
-            get { return _TriesLeft; }
-            set { _TriesLeft = value; }
-        }
+        public int TriesLeft { get; set; }
 
         /// <summary>
         /// Set up a round of Hangman

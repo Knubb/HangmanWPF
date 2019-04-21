@@ -2,10 +2,10 @@
 
 namespace HangmanWPF.Models
 {
-    public interface IWordDataBase
+    public interface IWordFetcher
     {
         int WordCount { get; }
 
-        IEnumerable<string> GetRandomSetOfWords(int amount);
+        string FetchRandomWord();
     }
 }
