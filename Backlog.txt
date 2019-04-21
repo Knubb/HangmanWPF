@@ -2,15 +2,16 @@ X Refactor GameManagerViewModel and surrounding dependencies.
 X Add a reset/refresh button to restart round.
 X Add a start menu.
 X Add constructor injection to WordFetcher.cs
-Write tests toward database and WordFetcher
+Write tests toward DataFetcherSQLite
 Research how to write tests toward viewmodel
-Create a SQLite-table for images.
-Create loading of images from SQLite-database.
+X Create a SQLite-table for images.
+X Create loading of images from SQLite-database.
 x Add Style / Add more style.
+Add a settings view
 
 Refactor:
 (HangmanGameViewModel) Find more suiting data structure/implementation of advancing through ``progressimages``.
-
+(IHangmanDataFetcher) Find cleaner structure for handling db-connections/Fetching data (SRP violation)
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up)

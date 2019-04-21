@@ -105,10 +105,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Text.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\HangmanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -122,16 +118,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\ActionCommand.cs" />
-    <Compile Include="Commands\GuessLetterCommand.cs" />
+    <Compile Include="Commands\ActionCommandT.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
-    <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\IHangmanDataFetcher.cs" />
+    <Compile Include="Models\IImageDataFetcher.cs" />
+    <Compile Include="Models\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
-    <Compile Include="Models\HangmanDatabase.cs" />
-    <Compile Include="Models\Interfaces.cs" />
+    <Compile Include="Models\HangmanDataFetcherSQLite.cs" />
+    <Compile Include="Models\IWordDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
-    <Compile Include="Models\WordFetcher.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="Views\HangmanView.xaml.cs">
       <DependentUpon>HangmanView.xaml</DependentUpon>
@@ -145,25 +142,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace HangmanWPF.Models
 {
@@ -10,16 +6,7 @@ namespace HangmanWPF.Models
     {
 
         public string WordToGuess { get; private set; }
-
-        private int _TriesLeft;
-        public int TriesLeft
-        {
-            get { return _TriesLeft; }
-            set
-            {
-                _TriesLeft = value;
-            }
-        }
+        public int TriesLeft { get; set; }
 
         /// <summary>
         /// Set up a round of Hangman
@@ -37,7 +24,6 @@ namespace HangmanWPF.Models
         {
             WordToGuess = word;
             TriesLeft = tries;
-
         }
 
         public bool MakeGuess(char letter)

@@ -3,12 +3,11 @@ using HangmanWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace HangmanWPF.ViewModels
@@ -31,11 +30,13 @@ namespace HangmanWPF.ViewModels
 
         #endregion
 
-
         public const int Tries = 8;
         private HangmanRoundManager _RoundManager { get; set; }
 
-        private Queue<BitmapImage> _ProgressImages;
+        //Hard dependencies
+        private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
+
+        private Queue<ImageSource> _ProgressImages;
 
         public ObservableCollection<LetterViewModel> LettersCollection { get; set; }
 
@@ -50,8 +51,8 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private BitmapImage _ProgressImage;
-        public BitmapImage ProgressImage
+        private BitmapSource _ProgressImage;
+        public BitmapSource ProgressImage
         {
             get
             {
@@ -75,12 +76,12 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        public ICommand GuessLetterCmnd { get; set; }
+        public ICommand GuessLetterCommand { get; set; }
         public ICommand NewRoundCommand { get; set; }
 
         public HangmanGameViewModel()
         {
-            GuessLetterCmnd = new GuessLetterCommand(this.GuessLetter);
+            GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
 
             InitializeRound();
@@ -111,14 +112,14 @@ namespace HangmanWPF.ViewModels
         {     
             InitializeRoundManager();
             InitializeMaskedWord();
-            InitializeProgressImages();
+            InitializeProgressImagesFromDataBase();
             InitializeLettersCollection();
         }
 
         private void InitializeRoundManager()
         {
             //Setup round manager object
-            _RoundManager = new HangmanRoundManager(new WordFetcher(new HangmanDatabase()).FetchRandomWord(), Tries);
+            _RoundManager = new HangmanRoundManager(_DataFetcher.FetchRandomWord(), Tries);
 
             Word = _RoundManager.WordToGuess; //DEV PROP
         }
@@ -135,15 +136,14 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private void InitializeProgressImages()
+        private void InitializeProgressImagesFromDataBase()
         {
-            //TODO Throw exception if the number of images is not equal to number of tries
-            _ProgressImages = new Queue<BitmapImage>();
+            _ProgressImages = new Queue<ImageSource>();
 
-            foreach (var item in this.LoadImagesInFolder("C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\Images"))
+            foreach (var dataset in _DataFetcher.FetchRandomImageSet())
             {
-                _ProgressImages.Enqueue(item);
-            };
+                _ProgressImages.Enqueue((ImageSource)new ImageSourceConverter().ConvertFrom(dataset));
+            }
 
             SetNextProgressImage();
         }
@@ -180,7 +180,7 @@ namespace HangmanWPF.ViewModels
             //Update progress image
             try
             {
-                ProgressImage = _ProgressImages.Dequeue();
+                ProgressImage = (BitmapSource)_ProgressImages.Dequeue();
             }
             catch (Exception)
             {
@@ -202,7 +202,7 @@ namespace HangmanWPF.ViewModels
 
         private void StartNewRound()
         {
-            _RoundManager.StartNew(new WordFetcher(new HangmanDatabase()).FetchRandomWord(), Tries);
+            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), Tries);
 
             Word = _RoundManager.WordToGuess; //DEV PROP
 
@@ -212,7 +212,7 @@ namespace HangmanWPF.ViewModels
             }
 
             InitializeMaskedWord();
-            InitializeProgressImages();
+            InitializeProgressImagesFromDataBase();
         }
 
         private void OnRoundWon()
@@ -247,18 +247,7 @@ namespace HangmanWPF.ViewModels
             return res.ToArray();
         }
 
-        private IEnumerable<BitmapImage> LoadImagesInFolder(string folderpath)
-        {
-            List<BitmapImage> images = new List<BitmapImage>();
 
-            foreach (var filepath in Directory.GetFiles(folderpath))
-            {
-                images.Add(new BitmapImage(new Uri(filepath, UriKind.Absolute)));
-            }
-
-
-            return images;
-        }
         #endregion
 
     }

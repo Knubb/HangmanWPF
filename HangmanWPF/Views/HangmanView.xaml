@@ -8,8 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="700">
 
- 
-    
     <UserControl.Resources>
 
         <vm:HangmanGameViewModel x:Key="HangmanViewModel"/>
@@ -20,13 +18,12 @@
             <Button  Width="30" Height="30"
                            Content="{Binding Path=Letter, Converter={StaticResource CharToString}}"
                            Style="{StaticResource LetterButtons}"
-                           Command="{Binding ElementName=LettersPanel, Path=DataContext.GuessLetterCmnd}"
+                           Command="{Binding ElementName=LettersPanel, Path=DataContext.GuessLetterCommand}"
                            CommandParameter="{Binding Path=Letter}"/>
         </DataTemplate>
 
     </UserControl.Resources>
 
-    
     <Grid DataContext="{StaticResource HangmanViewModel}"
           d:DataContext="{d:DesignData Source=/DesignData/HangmanDesignData.xaml}">
 
@@ -53,15 +50,11 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-
-
-
         <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
                    Width="auto" Height="auto" FontSize="32" Padding="2"
                       Text="{Binding MaskedWord}"
                       x:Name="GuessingPanel">
         </TextBlock>
-
 
         <Image Grid.Row="3" Grid.Column="1" Source="{Binding ProgressImage}"></Image>
 
@@ -72,13 +65,12 @@
             <Grid>
 
                 <!--Game specific buttons/info-->
-                <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                    <Button Content="Refresh"
-                    Command="{Binding Path=NewRoundCommand}"
-                    Style="{StaticResource MenuButtons}"
-                    Width="80" Height="30"/>
-                </StackPanel>
+                <Button Content="Refresh" Width="100" Height="auto"
+                        HorizontalAlignment="Left"
+                        Command="{Binding Path=NewRoundCommand}"
+                        Style="{StaticResource MenuButtons}">
 
+                </Button>
 
                 <!--DEBUG-->
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -89,17 +81,12 @@
                 <!--DEBUG-->
                 <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
                             Orientation="Horizontal">
-
                     <TextBlock Text="Difficulty: " FontSize="{StaticResource FontSizeLarge}"/>
                     <TextBlock Text="{Binding Path=Difficulty}" FontSize="{StaticResource FontSizeLarge}"/>
                 </StackPanel>
 
             </Grid>
-
         </Border>
-       
     </Grid>
-
-
 
 </UserControl>

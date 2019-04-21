@@ -10,6 +10,7 @@ namespace HangmanWPF.ViewModels
         HomeMenu,
         Hangman
     }
+
     public class HomeMenuViewModel : BaseViewModel
     {
 
@@ -28,14 +29,36 @@ namespace HangmanWPF.ViewModels
         public ICommand NavigatHomeCommand { get; set; }
         public ICommand CloseApplicationCommand { get; set; }
 
+        public ICommand InsertImageCommand { get; set; }
+
         public HomeMenuViewModel()
         {
-
             NavigateToHangmanCommand = new ActionCommand(this.NavigateTo);
             NavigatHomeCommand = new ActionCommand(this.NavigateHome);
             CloseApplicationCommand = new ActionCommand(this.CloseApplication);
+
+            //InsertImageCommand = new ActionCommand(this.InsertImageSet);
+
         }
 
+
+        //private void InsertImageSet()
+        //{
+
+        //    List<byte[]> files = new List<byte[]>();
+
+        //    foreach (var filepath in Directory.GetFiles("C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\Images"))
+        //    {
+        //        files.Add(File.ReadAllBytes(filepath));
+        //    }
+
+        //    var db = new HangmanDataFetcherSQLite();
+
+        //    db.InsertImageSet(files);
+
+        //    MessageBox.Show("Imageset inserted");
+
+        //}
 
         private void CloseApplication()
         {
@@ -54,6 +77,5 @@ namespace HangmanWPF.ViewModels
         {
             CurrentPage = Pages.HomeMenu;
         }
-
     }
 }

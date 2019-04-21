@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace HangmanWPF.Commands
 {
-    class ActionCommand : ICommand
+    class ActionCommand<T> : ICommand
     {
-        private Action _MethodToExecute;
+        private Action<T> _MethodToExecute;
         private Func<bool> _CanExecuteEvaluator;
 
-        public ActionCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
+        public ActionCommand(Action<T> methodToExecute, Func<bool> canExecuteEvaluator)
         {
             _MethodToExecute = methodToExecute;
             _CanExecuteEvaluator = canExecuteEvaluator;
         }
-        public ActionCommand(Action methodToExecute)
+        public ActionCommand(Action<T> methodToExecute)
             : this(methodToExecute, null)
         {
         }
@@ -34,9 +30,8 @@ namespace HangmanWPF.Commands
 
         public void Execute(object parameter)
         {
-            _MethodToExecute.Invoke();
+            _MethodToExecute.Invoke((T)parameter);
         }
-
 
         public event EventHandler CanExecuteChanged
         {

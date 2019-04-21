@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace HangmanWPF.Models
 {
-    public interface IWordDataBase
+    public interface IHangmanDataFetcher : IWordFetcher, IImageSetFetcher
     {
 
-        int WordCount { get; }
-
-        IEnumerable<string> GetRandomSetOfWords(int amount);
     }
 }

@@ -1,7 +1,5 @@
 ﻿<viewModel:HangmanGameViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels">
 
-
-    
     <viewModel:HangmanGameViewModel.MaskedWord>----------------</viewModel:HangmanGameViewModel.MaskedWord>
     
     <viewModel:HangmanGameViewModel.LettersCollection>
