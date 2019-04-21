@@ -41,7 +41,8 @@ namespace HangmanWPF.ViewModels
 
         }
 
-
+        //TODO: Move method to appropriate viewmodel (once created)
+        
         //private void InsertImageSet()
         //{
 

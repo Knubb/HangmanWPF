@@ -49,17 +49,13 @@
 
                 <Button Style="{StaticResource SystemButtons}"
                         Width="80" Height="50"
-                        Content="Settings" />
+                        Content="Settings" 
+                        IsEnabled="False"/>
 
                 <Button Style="{StaticResource SystemButtons}"
                         Width="80" Height="50"
                         Content="Close"
                         Command="{Binding CloseApplicationCommand}"/>
-
-                <Button Style="{StaticResource SystemButtons}" 
-                        Width="80" Height="50"
-                        Content="Insert image"
-                        Command="{Binding InsertImageCommand}"/>
 
             </StackPanel>
 
