@@ -89,10 +89,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\MessageBus\HangmanRoundMessage.cs" />
+    <Compile Include="Models\MessageBus\IMessageBus.cs" />
+    <Compile Include="Models\MessageBus\MessageBus.cs" />
+    <Compile Include="ViewModels\HangmanWordHistoryViewModel.cs" />
+    <Compile Include="Models\IHangmanDataFetcher.cs" />
+    <Compile Include="Views\WordHistoryWindow.xaml.cs">
+      <DependentUpon>WordHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <DesignData Include="DesignData\HangmanDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
+    <Page Include="DesignData\WordHistoryDesignData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,7 +132,6 @@
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\ActionCommandT.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
-    <Compile Include="Models\IHangmanDataFetcher.cs" />
     <Compile Include="Models\IImageDataFetcher.cs" />
     <Compile Include="Models\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
@@ -137,6 +148,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\WordHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

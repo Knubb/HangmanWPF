@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:conv="clr-namespace:HangmanWPF.Converters"
              xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
+             xmlns:views="clr-namespace:HangmanWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="700">
 
@@ -13,6 +14,8 @@
         <vm:HangmanGameViewModel x:Key="HangmanViewModel"/>
 
         <conv:CharacterToStringConverter x:Key="CharToString"/>
+
+        <views:WordHistoryWindow x:Key="HistoryWindow" />
 
         <DataTemplate x:Key="LetterButtonTemplate">
             <Button  Width="30" Height="30"
@@ -38,6 +41,36 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+
+        
+
+        <!--Top bar-->
+        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Padding="5"
+                Background="{StaticResource MainBackgroundLigthBrush}">
+
+            <Grid>
+                <!--Game specific buttons/info-->
+                <Button Content="Refresh" Width="100" Height="auto"
+                        HorizontalAlignment="Left"
+                        Command="{Binding Path=NewRoundCommand}"
+                        Style="{StaticResource MenuButtons}">
+                </Button>
+
+                <Button Content="History" Width="100" Height="auto"
+                        HorizontalAlignment="Center"
+                        Command="{Binding Path=ViewHistoryCommand}"
+                        CommandParameter="{StaticResource HistoryWindow}"
+                        Style="{StaticResource MenuButtons}">
+                </Button>
+            </Grid>
+        </Border>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
+                   Width="auto" Height="auto" FontSize="32" Padding="2"
+                      Text="{Binding MaskedWord}"
+                      x:Name="GuessingPanel">
+        </TextBlock>
+
         <ItemsControl Grid.Column="1" Grid.Row="2" Margin="100,5,100,5" 
                       ItemTemplate="{StaticResource LetterButtonTemplate}"
                       ItemsSource="{Binding LettersCollection}"
@@ -50,43 +83,26 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
-                   Width="auto" Height="auto" FontSize="32" Padding="2"
-                      Text="{Binding MaskedWord}"
-                      x:Name="GuessingPanel">
-        </TextBlock>
 
         <Image Grid.Row="3" Grid.Column="1" Source="{Binding ProgressImage}"></Image>
 
-        <!--Top bar-->
-        <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Padding="5"
-                Background="{StaticResource MainBackgroundLigthBrush}">
 
-            <Grid>
+        <!--DEBUG-->
+        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3" 
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom">
 
-                <!--Game specific buttons/info-->
-                <Button Content="Refresh" Width="100" Height="auto"
-                        HorizontalAlignment="Left"
-                        Command="{Binding Path=NewRoundCommand}"
-                        Style="{StaticResource MenuButtons}">
+            <TextBlock  Grid.Column="1" Grid.Row="3" 
+                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                     FontSize="{StaticResource FontSizeSmall}"
+                    Text="{Binding Word}">
+            </TextBlock>
 
-                </Button>
+            <TextBlock Text="Difficulty: " FontSize="{StaticResource FontSizeSmall}"/>
+            <TextBlock Text="{Binding Path=Difficulty}" FontSize="{StaticResource FontSizeSmall}"/>
 
-                <!--DEBUG-->
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
-                           FontSize="{StaticResource FontSizeLarge}"
-                           Text="{Binding Word}">
-                </TextBlock>
+        </StackPanel>
 
-                <!--DEBUG-->
-                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
-                            Orientation="Horizontal">
-                    <TextBlock Text="Difficulty: " FontSize="{StaticResource FontSizeLarge}"/>
-                    <TextBlock Text="{Binding Path=Difficulty}" FontSize="{StaticResource FontSizeLarge}"/>
-                </StackPanel>
 
-            </Grid>
-        </Border>
     </Grid>
 
 </UserControl>

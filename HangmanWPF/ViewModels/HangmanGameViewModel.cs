@@ -1,5 +1,6 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
+using HangmanWPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,13 +79,20 @@ namespace HangmanWPF.ViewModels
 
         public ICommand GuessLetterCommand { get; set; }
         public ICommand NewRoundCommand { get; set; }
+        public ICommand ViewHistoryCommand { get; set; }
 
         public HangmanGameViewModel()
         {
             GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
+            ViewHistoryCommand = new ActionCommand<Window>(this.OpenHistoryWindow);
 
             InitializeRound();
+        }
+
+        private void OpenHistoryWindow(Window view)
+        {
+            view.ShowDialog();
         }
 
         //We could move these methods to the HangmanRoundManager object, but that would make the command-object dependendent on an object whose lifespan is unknown
@@ -112,7 +120,7 @@ namespace HangmanWPF.ViewModels
         {     
             InitializeRoundManager();
             InitializeMaskedWord();
-            InitializeProgressImagesFromDataBase();
+            InitializeProgressImages();
             InitializeLettersCollection();
         }
 
@@ -136,7 +144,7 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private void InitializeProgressImagesFromDataBase()
+        private void InitializeProgressImages()
         {
             _ProgressImages = new Queue<ImageSource>();
 
@@ -212,12 +220,14 @@ namespace HangmanWPF.ViewModels
             }
 
             InitializeMaskedWord();
-            InitializeProgressImagesFromDataBase();
+            InitializeProgressImages();
         }
 
         private void OnRoundWon()
         {
             MessageBox.Show("Round won!");
+
+            PublishRoundResults();
 
             StartNewRound();
         }
@@ -226,9 +236,22 @@ namespace HangmanWPF.ViewModels
         {
             MessageBox.Show("Round lost");
 
+            PublishRoundResults();
+
             StartNewRound();
         }
 
+
+        private void PublishRoundResults()
+        {
+            var message = new HangmanRoundMessage
+            {
+                Word = _RoundManager.WordToGuess,
+                Won = false
+            };
+
+            MessageBus.Instance.Publish<HangmanRoundMessage>(message);
+        }
         #region Helpers
 
         private int[] FindAllIndexesOf(string str, char character)

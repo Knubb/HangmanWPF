@@ -1,0 +1,11 @@
+﻿<viewModel:HangmanWordHistoryViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <viewModel:HangmanWordHistoryViewModel.WordHistory>
+
+        <sys:String>Word</sys:String>
+        <sys:String>Longer</sys:String>
+        <sys:String>Pneumonoultramicroscopicsilicovolcanoconiosis</sys:String>
+
+    </viewModel:HangmanWordHistoryViewModel.WordHistory>
+
+</viewModel:HangmanWordHistoryViewModel>

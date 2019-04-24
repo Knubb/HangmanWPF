@@ -3,6 +3,7 @@ X Add a reset/refresh button to restart round.
 X Add a start menu.
 X Add constructor injection to WordFetcher.cs
 Write tests toward DataFetcherSQLite
+Write tests for MessageBus
 Research how to write tests toward viewmodel
 X Create a SQLite-table for images.
 X Create loading of images from SQLite-database.
@@ -11,7 +12,7 @@ Add a settings view
 
 Refactor:
 (HangmanGameViewModel) Find more suiting data structure/implementation of advancing through ``progressimages``.
-(IHangmanDataFetcher) Find cleaner structure for handling db-connections/Fetching data (SRP violation)
+(IHangmanDataFetcher) Research and try to find cleaner structure for handling db-connections/Fetching data (SRP violation?)
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up)
