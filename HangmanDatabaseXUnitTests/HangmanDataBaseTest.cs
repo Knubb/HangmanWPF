@@ -1,7 +1,7 @@
 ﻿using HangmanWPF.Models;
 using Xunit;
 
-namespace HangmanDatabaseXUnitTests
+namespace HangmanWPF.Tests
 {
     public class HangmanDataBaseTest
     {

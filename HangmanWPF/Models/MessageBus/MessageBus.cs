@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HangmanWPF.Models
 {
-    internal sealed class MessageBus : IMessageBus
+    public sealed class MessageBus : IMessageBus
     {
         //Singleotn
         private static MessageBus _Instance = new MessageBus();
