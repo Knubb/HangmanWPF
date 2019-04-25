@@ -1,3 +1,4 @@
+Fix problem with WordHistoryWindow terminating after closing, losing its persistance and crashes when tries to open again.
 X Refactor GameManagerViewModel and surrounding dependencies.
 X Add a reset/refresh button to restart round.
 X Add a start menu.

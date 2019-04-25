@@ -113,7 +113,7 @@ namespace HangmanWPF.ViewModels
                 SetNextProgressImage();
             }
 
-            CheckWinCondition();
+            CheckWinOrLoss();
         }
 
         private void InitializeRound()
@@ -196,16 +196,37 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private void CheckWinCondition()
+        private void CheckWinOrLoss()
         {
-            if (_RoundManager.TriesLeft < 1)
-            {
-                OnRoundLost();
-            }
-            else if (MaskedWord == _RoundManager.WordToGuess)
+            if (CheckWinCondition())
             {
                 OnRoundWon();
             }
+
+            if (CheckLoseCondition())
+            {
+                OnRoundLost();
+            }
+        }
+
+        private bool CheckWinCondition()
+        {
+            if (MaskedWord == _RoundManager.WordToGuess)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckLoseCondition()
+        {
+            if (_RoundManager.TriesLeft < 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void StartNewRound()
@@ -241,13 +262,12 @@ namespace HangmanWPF.ViewModels
             StartNewRound();
         }
 
-
         private void PublishRoundResults()
         {
             var message = new HangmanRoundMessage
             {
                 Word = _RoundManager.WordToGuess,
-                Won = false
+                Won = CheckWinCondition()
             };
 
             MessageBus.Instance.Publish<HangmanRoundMessage>(message);

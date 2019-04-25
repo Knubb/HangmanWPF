@@ -1,11 +1,23 @@
-﻿<viewModel:HangmanWordHistoryViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+﻿<viewModel:HangmanRoundHistoryViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels">
 
-    <viewModel:HangmanWordHistoryViewModel.WordHistory>
+    <viewModel:HangmanRoundHistoryViewModel.GameHistory>
 
-        <sys:String>Word</sys:String>
-        <sys:String>Longer</sys:String>
-        <sys:String>Pneumonoultramicroscopicsilicovolcanoconiosis</sys:String>
+        <viewModel:HangmanGameRecord>
+            <viewModel:HangmanGameRecord.Word>Game1</viewModel:HangmanGameRecord.Word>
+            <viewModel:HangmanGameRecord.Won>True</viewModel:HangmanGameRecord.Won>
+        </viewModel:HangmanGameRecord>
 
-    </viewModel:HangmanWordHistoryViewModel.WordHistory>
+        <viewModel:HangmanGameRecord>
+            <viewModel:HangmanGameRecord.Word>Game2</viewModel:HangmanGameRecord.Word>
+            <viewModel:HangmanGameRecord.Won>False</viewModel:HangmanGameRecord.Won>
+        </viewModel:HangmanGameRecord>
 
-</viewModel:HangmanWordHistoryViewModel>
+        <viewModel:HangmanGameRecord>
+            <viewModel:HangmanGameRecord.Word>pneumonoultramicroscopicsilicovolcanoconiosis</viewModel:HangmanGameRecord.Word>
+            <viewModel:HangmanGameRecord.Won>False</viewModel:HangmanGameRecord.Won>
+        </viewModel:HangmanGameRecord>
+
+    </viewModel:HangmanRoundHistoryViewModel.GameHistory>
+
+
+</viewModel:HangmanRoundHistoryViewModel>

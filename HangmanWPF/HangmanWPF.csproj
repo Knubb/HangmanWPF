@@ -92,7 +92,7 @@
     <Compile Include="Models\MessageBus\HangmanRoundMessage.cs" />
     <Compile Include="Models\MessageBus\IMessageBus.cs" />
     <Compile Include="Models\MessageBus\MessageBus.cs" />
-    <Compile Include="ViewModels\HangmanWordHistoryViewModel.cs" />
+    <Compile Include="ViewModels\HangmanRoundHistoryViewModel.cs" />
     <Compile Include="Models\IHangmanDataFetcher.cs" />
     <Compile Include="Views\WordHistoryWindow.xaml.cs">
       <DependentUpon>WordHistoryWindow.xaml</DependentUpon>
@@ -101,10 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Page Include="DesignData\WordHistoryDesignData.xaml">
+    <DesignData Include="DesignData\WordHistoryDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </DesignData>
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

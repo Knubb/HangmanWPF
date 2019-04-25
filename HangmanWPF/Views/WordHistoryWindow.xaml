@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
         mc:Ignorable="d"
-        Title="WordHistoryWindow" Height="450" Width="auto">
+        Title="Game History" Height="450" Width="auto">
 
 
     <Window.Resources>
 
-        <vm:HangmanWordHistoryViewModel x:Key="HistoryViewModel" />
+        <vm:HangmanRoundHistoryViewModel x:Key="HistoryViewModel" />
 
     </Window.Resources>
 
@@ -18,15 +18,46 @@
 
 
     <Grid DataContext="{StaticResource HistoryViewModel}"
-              d:DataContext="{d:DesignData Source=/DesignData/WordHistoryDesignData.xaml}">
+          d:DataContext="{d:DesignData Source=/DesignData/WordHistoryDesignData.xaml}">
 
         <Border Padding="10">
 
-            <ListView ItemsSource="{Binding WordHistory}">
+            <ListView ItemsSource="{Binding GameHistory}">
 
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type vm:HangmanGameRecord}">
+                        <Border>
+                            <Border.Style>
+
+                                <Style TargetType="{x:Type Border}">
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Won}" Value="True">
+                                            <Setter Property="Background" Value="LightGreen"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Won}" Value="False">
+                                            <Setter Property="Background" Value="Coral"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </Border.Style>
+
+                            <TextBlock Text="{Binding Path=Word}"
+                                       TextAlignment="Center"
+                                       FontSize="{StaticResource FontSizeRegular}"/>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-
         </Border>
-
+        
     </Grid>
+    
 </Window>
