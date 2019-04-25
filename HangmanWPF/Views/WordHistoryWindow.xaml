@@ -4,13 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
+        xmlns:mod="clr-namespace:HangmanWPF.Models"
         mc:Ignorable="d"
         Title="Game History" Height="450" Width="auto">
 
 
     <Window.Resources>
 
-        <vm:HangmanRoundHistoryViewModel x:Key="HistoryViewModel" />
+        <vm:HangmanGameHistoryViewModel x:Key="HistoryViewModel" />
 
     </Window.Resources>
 
@@ -20,9 +21,15 @@
     <Grid DataContext="{StaticResource HistoryViewModel}"
           d:DataContext="{d:DesignData Source=/DesignData/WordHistoryDesignData.xaml}">
 
-        <Border Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        
+        <Border Padding="10" Grid.Row="0">
 
-            <ListView ItemsSource="{Binding GameHistory}">
+            <ListView x:Name="WordHistoryList"
+                ItemsSource="{Binding GameHistory}">
 
 
                 <ListView.ItemContainerStyle>
@@ -31,7 +38,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type vm:HangmanGameRecord}">
+                    <DataTemplate DataType="{x:Type mod:HangmanGameRecord}">
                         <Border>
                             <Border.Style>
 
@@ -57,7 +64,14 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Border>
-        
+
+        <Button Grid.Row="1"
+                Width="140" Height="50"
+                Style="{StaticResource MenuButtons}"
+                Content="Open in Google"
+                Command="{Binding Path=OpenInGoogleCommand}"
+                CommandParameter="{Binding ElementName=WordHistoryList, Path=SelectedItem.Word}"/>
+
     </Grid>
     
 </Window>

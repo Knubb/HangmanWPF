@@ -1,4 +1,4 @@
-Fix problem with WordHistoryWindow terminating after closing, losing its persistance and crashes when tries to open again.
+X Fix problem with WordHistoryWindow terminating after closing, losing its persistance and crashes when tries to open again.
 X Refactor GameManagerViewModel and surrounding dependencies.
 X Add a reset/refresh button to restart round.
 X Add a start menu.
@@ -17,5 +17,7 @@ Refactor:
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
-Separate menu for viewing previous words/games.
+X Separate menu for viewing previous words/games.
 Show meaning of words.
+
+

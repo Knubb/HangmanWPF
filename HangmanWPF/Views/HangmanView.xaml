@@ -85,24 +85,7 @@
 
 
         <Image Grid.Row="3" Grid.Column="1" Source="{Binding ProgressImage}"></Image>
-
-
-        <!--DEBUG-->
-        <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="3" 
-                    HorizontalAlignment="Left" VerticalAlignment="Bottom">
-
-            <TextBlock  Grid.Column="1" Grid.Row="3" 
-                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                     FontSize="{StaticResource FontSizeSmall}"
-                    Text="{Binding Word}">
-            </TextBlock>
-
-            <TextBlock Text="Difficulty: " FontSize="{StaticResource FontSizeSmall}"/>
-            <TextBlock Text="{Binding Path=Difficulty}" FontSize="{StaticResource FontSizeSmall}"/>
-
-        </StackPanel>
-
-
+        
     </Grid>
 
 </UserControl>

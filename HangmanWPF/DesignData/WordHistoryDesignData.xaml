@@ -1,23 +1,23 @@
-﻿<viewModel:HangmanRoundHistoryViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels">
+﻿<ViewModel:HangmanGameHistoryViewModel xmlns:ViewModel="clr-namespace:HangmanWPF.ViewModels" xmlns:Model="clr-namespace:HangmanWPF.Models">
 
-    <viewModel:HangmanRoundHistoryViewModel.GameHistory>
+    <ViewModel:HangmanGameHistoryViewModel.GameHistory>
 
-        <viewModel:HangmanGameRecord>
-            <viewModel:HangmanGameRecord.Word>Game1</viewModel:HangmanGameRecord.Word>
-            <viewModel:HangmanGameRecord.Won>True</viewModel:HangmanGameRecord.Won>
-        </viewModel:HangmanGameRecord>
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>Game1</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>True</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
 
-        <viewModel:HangmanGameRecord>
-            <viewModel:HangmanGameRecord.Word>Game2</viewModel:HangmanGameRecord.Word>
-            <viewModel:HangmanGameRecord.Won>False</viewModel:HangmanGameRecord.Won>
-        </viewModel:HangmanGameRecord>
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>Game2</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>False</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
 
-        <viewModel:HangmanGameRecord>
-            <viewModel:HangmanGameRecord.Word>pneumonoultramicroscopicsilicovolcanoconiosis</viewModel:HangmanGameRecord.Word>
-            <viewModel:HangmanGameRecord.Won>False</viewModel:HangmanGameRecord.Won>
-        </viewModel:HangmanGameRecord>
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>pneumonoultramicroscopicsilicovolcanoconiosis</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>False</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
 
-    </viewModel:HangmanRoundHistoryViewModel.GameHistory>
+    </ViewModel:HangmanGameHistoryViewModel.GameHistory>
 
 
-</viewModel:HangmanRoundHistoryViewModel>
+</ViewModel:HangmanGameHistoryViewModel>

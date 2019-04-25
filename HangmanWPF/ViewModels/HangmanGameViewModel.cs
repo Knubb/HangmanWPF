@@ -1,6 +1,5 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
-using HangmanWPF.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,21 +14,6 @@ namespace HangmanWPF.ViewModels
 {
     public class HangmanGameViewModel : BaseViewModel
     {
-
-        #region Debug display
-
-        private string _Word;
-        public string Word
-        {
-            get { return _Word; }
-            set
-            {
-                _Word = value;
-                NotifyPropertyChanged(this, nameof(Word));
-            }
-        }
-
-        #endregion
 
         public const int Tries = 8;
         private HangmanRoundManager _RoundManager { get; set; }
@@ -92,10 +76,9 @@ namespace HangmanWPF.ViewModels
 
         private void OpenHistoryWindow(Window view)
         {
-            view.ShowDialog();
+            view.Show();
         }
 
-        //We could move these methods to the HangmanRoundManager object, but that would make the command-object dependendent on an object whose lifespan is unknown
         private void GuessLetter(char character)
         {
 
@@ -128,8 +111,6 @@ namespace HangmanWPF.ViewModels
         {
             //Setup round manager object
             _RoundManager = new HangmanRoundManager(_DataFetcher.FetchRandomWord(), Tries);
-
-            Word = _RoundManager.WordToGuess; //DEV PROP
         }
 
         private void InitializeLettersCollection()
@@ -233,8 +214,6 @@ namespace HangmanWPF.ViewModels
         {
             _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), Tries);
 
-            Word = _RoundManager.WordToGuess; //DEV PROP
-
             foreach (var lettervm in LettersCollection)
             {
                 lettervm.UpdateState(LetterState.NoGuess);
@@ -272,6 +251,7 @@ namespace HangmanWPF.ViewModels
 
             MessageBus.Instance.Publish<HangmanRoundMessage>(message);
         }
+
         #region Helpers
 
         private int[] FindAllIndexesOf(string str, char character)
@@ -289,7 +269,6 @@ namespace HangmanWPF.ViewModels
 
             return res.ToArray();
         }
-
 
         #endregion
 
