@@ -1,0 +1,85 @@
+﻿<Window x:Class="HangmanWPF.Views.SelectImagSetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HangmanWPF.Views"
+        xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
+        mc:Ignorable="d"
+        Title="SelectHangmanGraphicsWindow"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource MainBackgroundLigthBrush}">
+
+
+    <Window.Resources>
+        
+        
+
+        <DataTemplate x:Key="ImageBoxTemplate">
+
+            <Border Width="120" Height="120" BorderThickness="1" BorderBrush="Black" x:Name="ImageBox">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding ElementName=ImageBox, Path=DataContext}" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+
+        </DataTemplate>
+
+        <DataTemplate x:Key="GraphicsSelectionTemplate">
+
+            <RadioButton GroupName="Selection" x:Name="SelectButton"
+                         VerticalContentAlignment="Center"
+                         Command="{Binding Path=DataContext.MarkSelectionCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}, Mode=FindAncestor}}"
+                         CommandParameter="{Binding ElementName=SelectButton, Path=DataContext}">
+
+                <ItemsControl ItemsSource="{Binding ElementName=SelectButton, Path=DataContext}"
+                              ItemTemplate="{StaticResource ImageBoxTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"></StackPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+            </RadioButton>
+
+        </DataTemplate>
+
+    </Window.Resources>
+
+
+
+    <Grid Margin="10" d:DataContext="{d:DesignInstance Type={x:Type vm:SelectImageSetViewModel}}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding Path=ImageSetCollection}"
+                      ItemTemplate="{StaticResource GraphicsSelectionTemplate}">
+        </ItemsControl>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button Grid.Row="1" 
+                    Margin="2"
+                    Width="120" Height="90"
+                    Content="Select"
+                    Style="{StaticResource MenuButtons}"
+                    Command="{Binding Path=ReturnResultsCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+
+
+            <Button Grid.Row="1" 
+                    Margin="2"
+                    Width="120" Height="90"
+                    Content="Cancel"
+                    Style="{StaticResource MenuButtons}"
+                    IsCancel="True"/>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

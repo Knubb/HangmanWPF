@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace HangmanWPF.ViewModels
 {
-    class HangmanGameHistoryViewModel
+    class WordHistoryViewModel
     {
 
         public ObservableCollection<HangmanGameRecord> GameHistory { get; set; } = new ObservableCollection<HangmanGameRecord>();
@@ -13,14 +13,14 @@ namespace HangmanWPF.ViewModels
         public ICommand OpenInGoogleCommand { get; set; }
 
 
-        public HangmanGameHistoryViewModel()
+        public WordHistoryViewModel()
         {
             OpenInGoogleCommand = new ActionCommand<string>(this.OpenInGoogle);
 
-            MessageBus.Instance.Subscribe<HangmanRoundMessage>(HandleMessage);
+            MessageBus.Instance.Subscribe<HangmanRoundFinishedMessage>(HandleMessage);
         }
 
-        private void HandleMessage(HangmanRoundMessage message)
+        private void HandleMessage(HangmanRoundFinishedMessage message)
         {
 
             GameHistory.Add(new HangmanGameRecord(message.Word, message.Won));

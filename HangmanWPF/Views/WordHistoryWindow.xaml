@@ -11,7 +11,7 @@
 
     <Window.Resources>
 
-        <vm:HangmanGameHistoryViewModel x:Key="HistoryViewModel" />
+        <vm:WordHistoryViewModel x:Key="HistoryViewModel" />
 
     </Window.Resources>
 

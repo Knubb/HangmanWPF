@@ -9,15 +9,25 @@ Research how to write tests toward viewmodel.
 X Create a SQLite-table for images.
 X Create loading of images from SQLite-database.
 x Add Style / Add more style.
-Add a settings view.
+x Add persistance to optionswindow
+Add caching imagesets
 
 Refactor:
-(HangmanGameViewModel) Find more suiting data structure/implementation of advancing through ``progressimages``.
 (IHangmanDataFetcher) Research and try to find cleaner structure for handling db-connections/Fetching data (SRP violation?).
+(HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
+(HangmanDataFetcherSQLite) Use "using" keyword for handling disposing/closing objects.
+(HangmanGameViewModel) Remove _HangmanRoundManager ctor and enforce using the StartNew()-method.
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
 X Separate menu for viewing previous words/games.
-Show meaning of words.
+x Show meaning of words.
 
+BUGS:
 
+(UploadHangmanGraphicsWindow) 
+	Expected behaviour:
+		Closes on successful upload.
+
+	Curent behaviour: 
+		Does not close.

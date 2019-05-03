@@ -16,6 +16,7 @@
         <conv:CharacterToStringConverter x:Key="CharToString"/>
 
         <views:WordHistoryWindow x:Key="HistoryWindow" />
+        <views:HangmanOptionsWindow x:Key="OptionsWindow" />
 
         <DataTemplate x:Key="LetterButtonTemplate">
             <Button  Width="30" Height="30"
@@ -62,6 +63,14 @@
                         CommandParameter="{StaticResource HistoryWindow}"
                         Style="{StaticResource MenuButtons}">
                 </Button>
+
+                <Button Content="Options" Width="100" Height="auto"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Path=ViewOptionsCommand}"
+                        CommandParameter="{StaticResource OptionsWindow}"
+                        Style="{StaticResource MenuButtons}">
+                </Button>
+
             </Grid>
         </Border>
 

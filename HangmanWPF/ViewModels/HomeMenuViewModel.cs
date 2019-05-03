@@ -8,7 +8,8 @@ namespace HangmanWPF.ViewModels
     public enum Pages
     {
         HomeMenu,
-        Hangman
+        Hangman,
+        Settings
     }
 
     public class HomeMenuViewModel : BaseViewModel
@@ -33,7 +34,7 @@ namespace HangmanWPF.ViewModels
 
         public HomeMenuViewModel()
         {
-            NavigateToHangmanCommand = new ActionCommand(this.NavigateTo);
+            NavigateToHangmanCommand = new ActionCommand(this.NavigateToHangman);
             NavigatHomeCommand = new ActionCommand(this.NavigateHome);
             CloseApplicationCommand = new ActionCommand(this.CloseApplication);
 
@@ -69,7 +70,7 @@ namespace HangmanWPF.ViewModels
             Application.Current.Shutdown();
         }
 
-        public void NavigateTo()
+        public void NavigateToHangman()
         {
             CurrentPage = Pages.Hangman;
         }

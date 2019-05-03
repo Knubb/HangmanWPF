@@ -20,8 +20,7 @@ namespace HangmanWPF.ViewModels
 
         //Hard dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
-
-        private Queue<ImageSource> _ProgressImages;
+        private ImageSetEnumerator _ImageSetProgresser = new ImageSetEnumerator();
 
         public ObservableCollection<LetterViewModel> LettersCollection { get; set; }
 
@@ -48,30 +47,26 @@ namespace HangmanWPF.ViewModels
                 _ProgressImage = value;
                 this.NotifyPropertyChanged(this, nameof(ProgressImage));
             }
-        }
-
-        private string _Difficulty;
-        public string Difficulty
-        {
-            get { return _Difficulty; }
-            set
-            {
-                _Difficulty = value;
-                NotifyPropertyChanged(this, nameof(Difficulty));
-            }
-        }
+        } 
 
         public ICommand GuessLetterCommand { get; set; }
         public ICommand NewRoundCommand { get; set; }
         public ICommand ViewHistoryCommand { get; set; }
+        public ICommand ViewOptionsCommand { get; set; }
 
         public HangmanGameViewModel()
         {
             GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
             ViewHistoryCommand = new ActionCommand<Window>(this.OpenHistoryWindow);
+            ViewOptionsCommand = new ActionCommand<Window>(this.OpenOptionsWindow);
 
             InitializeRound();
+        }
+
+        private void OpenOptionsWindow(Window view)
+        {
+            view.ShowDialog();
         }
 
         private void OpenHistoryWindow(Window view)
@@ -127,11 +122,32 @@ namespace HangmanWPF.ViewModels
 
         private void InitializeProgressImages()
         {
-            _ProgressImages = new Queue<ImageSource>();
 
-            foreach (var dataset in _DataFetcher.FetchRandomImageSet())
+            _ImageSetProgresser.Reset();
+
+            switch (SettingsContainer.HangmanOptions.GraphicsOption)
             {
-                _ProgressImages.Enqueue((ImageSource)new ImageSourceConverter().ConvertFrom(dataset));
+                case GraphicsOption.RandomizeOnce:
+
+                    //Use the same imageset again.
+                    if (!_ImageSetProgresser.IsInitialized)
+                    {
+                        _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+                    }
+
+                    break;
+                case GraphicsOption.RandomizeEachRound:
+
+                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+
+                    break;
+                case GraphicsOption.UseSelected:
+
+                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(SettingsContainer.HangmanOptions.SelectedImageSetData));
+
+                    break;
+                default:
+                    break;
             }
 
             SetNextProgressImage();
@@ -166,15 +182,8 @@ namespace HangmanWPF.ViewModels
 
         private void SetNextProgressImage()
         {
-            //Update progress image
-            try
-            {
-                ProgressImage = (BitmapSource)_ProgressImages.Dequeue();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _ImageSetProgresser.MoveNext();
+            ProgressImage = _ImageSetProgresser.Current as BitmapSource;
         }
 
         private void CheckWinOrLoss()
@@ -243,13 +252,13 @@ namespace HangmanWPF.ViewModels
 
         private void PublishRoundResults()
         {
-            var message = new HangmanRoundMessage
+            var message = new HangmanRoundFinishedMessage
             {
                 Word = _RoundManager.WordToGuess,
                 Won = CheckWinCondition()
             };
 
-            MessageBus.Instance.Publish<HangmanRoundMessage>(message);
+            MessageBus.Instance.Publish<HangmanRoundFinishedMessage>(message);
         }
 
         #region Helpers

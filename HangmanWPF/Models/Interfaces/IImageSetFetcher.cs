@@ -6,6 +6,9 @@ namespace HangmanWPF.Models
     {
         int ImageSetCount { get; }
 
-        IEnumerable<byte[]> FetchRandomImageSet();
+        IEnumerable<byte[]> FetchRandomImageSetData();
+
+        IEnumerable<IEnumerable<byte[]>> FetchAllImageSetsAsData();
+     
     }
 }

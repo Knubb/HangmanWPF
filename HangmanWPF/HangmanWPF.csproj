@@ -15,6 +15,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,11 +30,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -89,12 +89,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Enums\GraphicOption.cs" />
     <Compile Include="Models\HangmanGameRecord.cs" />
+    <Compile Include="Models\IHangmanOptionsSettings.cs" />
+    <Compile Include="Models\ImageSetEnumerator.cs" />
+    <Compile Include="Models\Interfaces\IDialogViewModel.cs" />
+    <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
+    <Compile Include="Models\ImageDataTransformHelper.cs" />
+    <Compile Include="Models\Interfaces\ISettings.cs" />
     <Compile Include="Models\MessageBus\HangmanRoundMessage.cs" />
     <Compile Include="Models\MessageBus\IMessageBus.cs" />
     <Compile Include="Models\MessageBus\MessageBus.cs" />
-    <Compile Include="ViewModels\HangmanGameHistoryViewModel.cs" />
-    <Compile Include="Models\IHangmanDataFetcher.cs" />
+    <Compile Include="Models\HangmanOptionsSettings_SettingsFile.cs" />
+    <Compile Include="Models\SettingsContainer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WordHistoryViewModel.cs" />
+    <Compile Include="Models\Interfaces\IHangmanDataFetcher.cs" />
+    <Compile Include="ViewModels\HangmanOptionsViewModel.cs" />
+    <Compile Include="ViewModels\SelectImageSetViewModel.cs" />
+    <Compile Include="ViewModels\UploadImagSetViewModel.cs" />
+    <Compile Include="Views\HangmanOptionsWindow.xaml.cs">
+      <DependentUpon>HangmanOptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectImagSetWindow.xaml.cs">
+      <DependentUpon>SelectImagSetWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UploadImagSetWindow.xaml.cs">
+      <DependentUpon>UploadImagSetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WordHistoryWindow.xaml.cs">
       <DependentUpon>WordHistoryWindow.xaml</DependentUpon>
     </Compile>
@@ -118,6 +144,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\HangmanOptionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HangmanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,11 +163,11 @@
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\ActionCommandT.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
-    <Compile Include="Models\IImageDataFetcher.cs" />
-    <Compile Include="Models\LetterState.cs" />
+    <Compile Include="Models\Interfaces\IImageSetFetcher.cs" />
+    <Compile Include="Models\Enums\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
     <Compile Include="Models\HangmanDataFetcherSQLite.cs" />
-    <Compile Include="Models\IWordDataFetcher.cs" />
+    <Compile Include="Models\Interfaces\IWordDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />
@@ -149,6 +179,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\SelectImagSetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UploadImagSetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\WordHistoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,6 +197,10 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
