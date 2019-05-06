@@ -84,6 +84,7 @@ namespace HangmanWPF.ViewModels
                 SelectedImageSetCollection.Add(item);
             }
 
+
             SettingsContainer.HangmanOptions.SelectedImageSetData = ImageDataTransformHelper.CreateDataCollectionFromImages(imageset);
             SetGraphicsOption(GraphicsOption.UseSelected);
         }

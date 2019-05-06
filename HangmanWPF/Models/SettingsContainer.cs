@@ -9,7 +9,6 @@ namespace HangmanWPF.Models
     public static class SettingsContainer
     {
         private static IHangmanOptionsSettings _HangmanOptions;
-
         public static IHangmanOptionsSettings HangmanOptions
         {
             get
@@ -35,8 +34,7 @@ namespace HangmanWPF.Models
         /// </summary>
         public static void SaveAll()
         {
-            //TODO
-            //Find a way to call save on every property
+            //TODO Find a way to call save on every property
 
             HangmanOptions.Save();
         }

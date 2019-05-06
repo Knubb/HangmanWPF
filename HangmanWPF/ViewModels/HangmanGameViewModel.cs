@@ -1,13 +1,11 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace HangmanWPF.ViewModels
@@ -15,10 +13,11 @@ namespace HangmanWPF.ViewModels
     public class HangmanGameViewModel : BaseViewModel
     {
 
-        public const int Tries = 8;
-        private HangmanRoundManager _RoundManager { get; set; }
+        private const int _Tries = 8;
 
-        //Hard dependencies
+        private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
+
+        //TODO: Invert dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
         private ImageSetEnumerator _ImageSetProgresser = new ImageSetEnumerator();
 
@@ -61,7 +60,8 @@ namespace HangmanWPF.ViewModels
             ViewHistoryCommand = new ActionCommand<Window>(this.OpenHistoryWindow);
             ViewOptionsCommand = new ActionCommand<Window>(this.OpenOptionsWindow);
 
-            InitializeRound();
+            InitializeLettersCollection();
+            StartNewRound();
         }
 
         private void OpenOptionsWindow(Window view)
@@ -76,7 +76,6 @@ namespace HangmanWPF.ViewModels
 
         private void GuessLetter(char character)
         {
-
             if (_RoundManager.MakeGuess(character))
             {
 
@@ -88,24 +87,22 @@ namespace HangmanWPF.ViewModels
             {
                 LettersCollection.Single((x) => x.Letter == character).UpdateState(LetterState.Wrong);
 
-                SetNextProgressImage();
+                SetNextImageInSet();
             }
 
             CheckWinOrLoss();
         }
 
-        private void InitializeRound()
-        {     
-            InitializeRoundManager();
+        private void StartNewRound()
+        {
+            foreach (var lettervm in LettersCollection)
+            {
+                lettervm.UpdateState(LetterState.NoGuess);
+            }
+
+            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), _Tries);
             InitializeMaskedWord();
             InitializeProgressImages();
-            InitializeLettersCollection();
-        }
-
-        private void InitializeRoundManager()
-        {
-            //Setup round manager object
-            _RoundManager = new HangmanRoundManager(_DataFetcher.FetchRandomWord(), Tries);
         }
 
         private void InitializeLettersCollection()
@@ -129,11 +126,12 @@ namespace HangmanWPF.ViewModels
             {
                 case GraphicsOption.RandomizeOnce:
 
-                    //Use the same imageset again.
                     if (!_ImageSetProgresser.IsInitialized)
                     {
                         _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
                     }
+                    //Else: Use the same imageset again.
+
 
                     break;
                 case GraphicsOption.RandomizeEachRound:
@@ -146,11 +144,9 @@ namespace HangmanWPF.ViewModels
                     _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(SettingsContainer.HangmanOptions.SelectedImageSetData));
 
                     break;
-                default:
-                    break;
             }
 
-            SetNextProgressImage();
+            SetNextImageInSet();
         }
 
         private void InitializeMaskedWord()
@@ -180,7 +176,7 @@ namespace HangmanWPF.ViewModels
             this.MaskedWord = sb.ToString();
         }
 
-        private void SetNextProgressImage()
+        private void SetNextImageInSet()
         {
             _ImageSetProgresser.MoveNext();
             ProgressImage = _ImageSetProgresser.Current as BitmapSource;
@@ -217,19 +213,6 @@ namespace HangmanWPF.ViewModels
             }
 
             return false;
-        }
-
-        private void StartNewRound()
-        {
-            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), Tries);
-
-            foreach (var lettervm in LettersCollection)
-            {
-                lettervm.UpdateState(LetterState.NoGuess);
-            }
-
-            InitializeMaskedWord();
-            InitializeProgressImages();
         }
 
         private void OnRoundWon()

@@ -17,7 +17,11 @@
             <Button Style="{StaticResource MenuButtons}"
                     Width="200" Height="100"
                     Content="Go to Hangman"
-                    Command="{Binding NavigateToHangmanCommand}"/>
+                    Command="{Binding Path=NavigateCommand}">
+                <Button.CommandParameter>
+                    <views:Pages>Hangman</views:Pages>
+                </Button.CommandParameter>
+            </Button>
         </DataTemplate>
 
         <DataTemplate x:Key="HangmanViewTemplate" DataType="{x:Type vms:HangmanGameViewModel}">
@@ -39,18 +43,16 @@
         <!--Side bar-->
         <Border Grid.Column="0" Padding="5" Background="{StaticResource MainBackgroundLigthBrush}">
 
-
             <StackPanel VerticalAlignment="Bottom">
 
                 <Button Style="{StaticResource SystemButtons}"
                         Width="80" Height="50"
                         Content="Home"
-                        Command="{Binding NavigatHomeCommand}"/>
-
-                <Button Style="{StaticResource SystemButtons}"
-                        Width="80" Height="50"
-                        Content="Settings" 
-                        IsEnabled="False"/>
+                        Command="{Binding Path=NavigateCommand}">
+                    <Button.CommandParameter>
+                        <views:Pages>HomeMenu</views:Pages>
+                    </Button.CommandParameter>
+                </Button>
 
                 <Button Style="{StaticResource SystemButtons}"
                         Width="80" Height="50"
@@ -70,19 +72,22 @@
                     <Style TargetType="{x:Type ContentControl}">
 
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding CurrentPage}" Value="0">
+                            <DataTrigger Binding="{Binding CurrentPage}">
+                                <DataTrigger.Value>
+                                    <views:Pages>HomeMenu</views:Pages>
+                                </DataTrigger.Value>
                                 <Setter Property="ContentTemplate" Value="{StaticResource HomeViewTemplate}" />
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding CurrentPage}" Value="1">
+                            <DataTrigger Binding="{Binding CurrentPage}">
+                                <DataTrigger.Value>
+                                    <views:Pages>Hangman</views:Pages>
+                                </DataTrigger.Value>
                                 <Setter Property="ContentTemplate" Value="{StaticResource HangmanViewTemplate}" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </ContentControl.Style>
             </ContentControl>
-
         </Border>
-
     </Grid>
-
 </Window>

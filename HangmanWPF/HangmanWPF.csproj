@@ -115,6 +115,7 @@
     <Compile Include="Views\HangmanOptionsWindow.xaml.cs">
       <DependentUpon>HangmanOptionsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages.cs" />
     <Compile Include="Views\SelectImagSetWindow.xaml.cs">
       <DependentUpon>SelectImagSetWindow.xaml</DependentUpon>
     </Compile>

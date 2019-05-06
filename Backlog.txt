@@ -11,23 +11,19 @@ X Create loading of images from SQLite-database.
 x Add Style / Add more style.
 x Add persistance to optionswindow
 Add caching imagesets
+Make UploadImagSetWindow close on successful upload
+
+Add a IoC container, dependencies to be cleaned up marked with "//TODO"
+
 
 Refactor:
 (IHangmanDataFetcher) Research and try to find cleaner structure for handling db-connections/Fetching data (SRP violation?).
 (HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
 (HangmanDataFetcherSQLite) Use "using" keyword for handling disposing/closing objects.
-(HangmanGameViewModel) Remove _HangmanRoundManager ctor and enforce using the StartNew()-method.
+X (HangmanGameViewModel) Remove _HangmanRoundManager ctor and enforce using the StartNew()-method.
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
 X Separate menu for viewing previous words/games.
 x Show meaning of words.
 
-BUGS:
-
-(UploadHangmanGraphicsWindow) 
-	Expected behaviour:
-		Closes on successful upload.
-
-	Curent behaviour: 
-		Does not close.

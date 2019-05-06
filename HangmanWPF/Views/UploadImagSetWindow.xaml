@@ -16,8 +16,6 @@
 
         <vms:UploadImagSetViewModel x:Key="UploadViewModel" />
 
-
-
     </Window.Resources>
 
     <Grid DataContext="{StaticResource UploadViewModel}" Margin="5">
@@ -168,41 +166,21 @@
 
         </WrapPanel>
 
-        <Button Grid.Row="2" Content="Upload"
-                Width="120" Height="90"
-                Command="{Binding Path=UploadImagesCommand}">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
 
-            <Button.Style>
-                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MenuButtons}">
+            <Button Content="Upload"
+                    Width="120" Height="90"
+                    Margin="2"
+                    Command="{Binding Path=UploadImagesCommand}" 
+                    Style="{StaticResource MenuButtons}"
+                    IsDefault="True"/>
 
+            <Button Content="Cancel"
+                    Margin="2"
+                    Width="120" Height="90"
+                    Style="{StaticResource MenuButtons}"
+                    IsCancel="True"/>
 
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type Button}">
-
-                                <Border x:Name="Border"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        Background="{TemplateBinding Background}">
-
-                                    <TextBlock Text="{TemplateBinding Content}"
-                                               TextAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderThickness" Value="2" />
-                                    </Trigger>
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Background" Value="Red"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </Button.Style>
-
-        </Button>
+        </StackPanel>
     </Grid>
 </Window>

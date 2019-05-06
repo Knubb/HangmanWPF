@@ -47,7 +47,6 @@ namespace HangmanWPF.ViewModels
 
                 var imagedata = File.ReadAllBytes(filedialog.FileName);
 
-
                 selectedimage = (ImageSource)new ImageSourceConverter().ConvertFrom(imagedata);
 
                 ImageCollection[imagenumber] = selectedimage;
@@ -62,7 +61,7 @@ namespace HangmanWPF.ViewModels
             // https://stackoverflow.com/questions/43289/comparing-two-byte-arrays-in-net
             // https://docs.microsoft.com/en-us/dotnet/api/system.memoryextensions.sequenceequal?view=netstandard-2.1
 
-
+            //TODO: Invert dependecy
             IImagSetUploader uploader = new HangmanDataFetcherSQLite();
 
             uploader.InsertImageSet(ImageDataTransformHelper.CreateDataCollectionFromImages(ImageCollection));

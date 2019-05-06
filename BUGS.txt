@@ -1,0 +1,8 @@
+BUGS:
+
+(Changing hangman graphics options) 
+	Expected behaviour:
+		Should immedietly start using the new selected imageset.
+
+	Curent behaviour: 
+		The current round is using the old imageset still, and only switches on the next round.

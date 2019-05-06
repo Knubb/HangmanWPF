@@ -52,6 +52,9 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="BorderThickness" Value="2" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="Red"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
