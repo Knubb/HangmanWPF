@@ -6,3 +6,11 @@ BUGS:
 
 	Curent behaviour: 
 		The current round is using the old imageset still, and only switches on the next round.
+
+(App)
+	Expected behaviour:
+		..
+
+	Curent behaviour: 
+		Suspected memory leak. Going to the Hangman-game view and then "Home",
+		and back to Hangman again allocates more memory each time, without freeing up the previous.
