@@ -58,17 +58,16 @@ namespace HangmanWPF.ViewModels
 
         private void OpenSelectGraphicsDialog()
         {
-            var view = new SelectImagSetWindow();
+            var view = new SelectImageSetWindow();
 
-            SelectImageSetViewModel selectionvm = new SelectImageSetViewModel();
-
-            view.DataContext = selectionvm;
 
             if (view.ShowDialog() == true)
             {
-                var result = selectionvm.SelectedImageSet;
+                var result = view.ViewModel.SelectedImageSet;
 
+                //Do something with value
                 SetSelectedImageSet(result);
+
             }
         }
 

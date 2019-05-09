@@ -11,7 +11,7 @@ namespace HangmanWPF.ViewModels
     public class SelectImageSetViewModel : BaseViewModel, IDialogViewModel
     {
 
-        public ObservableCollection<List<ImageSource>> ImageSetCollection { get; set; } = new ObservableCollection<List<ImageSource>>();
+        public ObservableCollection<List<ImageSource>> SelectableImageSetsCollection { get; set; } = new ObservableCollection<List<ImageSource>>();
 
         public List<ImageSource> SelectedImageSet { get; set; } = new List<ImageSource>();
 
@@ -22,7 +22,7 @@ namespace HangmanWPF.ViewModels
         public SelectImageSetViewModel()
         {
             MarkSelectionCommand = new ActionCommand<List<ImageSource>>(this.SetSelection);
-            ReturnResultsCommand = new ActionCommand<Window>(this.CloseWindowAndReturnResults, this.CanReturnResult);
+            ReturnResultsCommand = new ActionCommand<Window>(this.CloseWindowAndReturnTrue, this.CanReturnResult);
 
             FetchImageSetsAndAddToCollection();
         }
@@ -41,11 +41,11 @@ namespace HangmanWPF.ViewModels
 
                 List<ImageSource> imagearray = ImageDataTransformHelper.CreateImageCollectionFromData(dataset);
 
-                ImageSetCollection.Add(imagearray);
+                SelectableImageSetsCollection.Add(imagearray);
             }
         }
 
-        public void CloseWindowAndReturnResults(Window window)
+        public void CloseWindowAndReturnTrue(Window window)
         {
             window.DialogResult = true;
         }

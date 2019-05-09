@@ -112,12 +112,13 @@
     <Compile Include="ViewModels\HangmanOptionsViewModel.cs" />
     <Compile Include="ViewModels\SelectImageSetViewModel.cs" />
     <Compile Include="ViewModels\UploadImagSetViewModel.cs" />
+    <Compile Include="Models\BaseDialogWindow.cs" />
     <Compile Include="Views\HangmanOptionsWindow.xaml.cs">
       <DependentUpon>HangmanOptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages.cs" />
-    <Compile Include="Views\SelectImagSetWindow.xaml.cs">
-      <DependentUpon>SelectImagSetWindow.xaml</DependentUpon>
+    <Compile Include="Views\SelectImageSetWindow.xaml.cs">
+      <DependentUpon>SelectImageSetWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UploadImagSetWindow.xaml.cs">
       <DependentUpon>UploadImagSetWindow.xaml</DependentUpon>
@@ -180,7 +181,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\SelectImagSetWindow.xaml">
+    <Page Include="Views\SelectImageSetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

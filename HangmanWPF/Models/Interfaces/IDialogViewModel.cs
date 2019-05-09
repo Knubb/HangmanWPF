@@ -8,7 +8,7 @@ namespace HangmanWPF.Models
 
         ICommand ReturnResultsCommand { get; set; }
 
-        void CloseWindowAndReturnResults(Window window);
+        void CloseWindowAndReturnTrue(Window window);
 
         bool CanReturnResult();
 
