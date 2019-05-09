@@ -60,14 +60,11 @@ namespace HangmanWPF.ViewModels
         {
             var view = new SelectImageSetWindow();
 
-
             if (view.ShowDialog() == true)
             {
                 var result = view.ViewModel.SelectedImageSet;
 
-                //Do something with value
                 SetSelectedImageSet(result);
-
             }
         }
 
