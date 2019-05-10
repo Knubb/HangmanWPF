@@ -7,8 +7,11 @@ namespace HangmanWPF.Models
 {
     public class HangmanDataFetcherSQLite : IHangmanDataFetcher, IImagSetUploader
     {
-        private SQLiteConnection _Connection;
+
+        private const string _ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
         private const int _ImageSetSize = 9;
+
+        private SQLiteConnection _Connection;
 
         private int _WordCount = -1;
         public int WordCount
@@ -65,9 +68,7 @@ namespace HangmanWPF.Models
 
         private void Initialize()
         {
-            string connectionString = "Data Source=C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\HangmanDataBase.db;Version=3";
-
-            _Connection = new SQLiteConnection(connectionString);
+            _Connection = new SQLiteConnection(_ConnectionString);
         }
 
         private int GetWordCount()
