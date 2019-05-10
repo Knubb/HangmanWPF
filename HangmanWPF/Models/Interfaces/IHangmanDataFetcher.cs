@@ -1,6 +1,6 @@
 ﻿namespace HangmanWPF.Models
 {
-    internal interface IHangmanDataFetcher : IWordFetcher, IImageSetFetcher
+    public interface IHangmanDataFetcher : IWordFetcher, IImageSetFetcher
     {
     }
 }
