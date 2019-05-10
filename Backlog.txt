@@ -3,17 +3,17 @@ X Refactor GameManagerViewModel and surrounding dependencies.
 X Add a reset/refresh button to restart round.
 X Add a start menu.
 X Add constructor injection to WordFetcher.cs
-Write tests toward DataFetcherSQLite.
+x Write tests toward DataFetcherSQLite.
 X Write tests for MessageBus.
-Research how to write tests toward viewmodel.
+x Research how to write tests toward viewmodel.
 X Create a SQLite-table for images.
 X Create loading of images from SQLite-database.
 x Add Style / Add more style.
 x Add persistance to optionswindow
-Add caching imagesets
-Make UploadImagSetWindow close on successful upload
 
-Add a IoC container, dependencies to be cleaned up marked with "//TODO"
+Figure out the reason behind the high memory usage.
+Add caching imagesets.
+Make UploadImagSetWindow close on successful upload.
 
 
 Refactor:
@@ -21,6 +21,8 @@ Refactor:
 (HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
 (HangmanDataFetcherSQLite) Use "using" keyword for handling disposing/closing objects.
 X (HangmanGameViewModel) Remove _HangmanRoundManager ctor and enforce using the StartNew()-method.
+x (HangmanDataFetcherSQLite) Use connectionstring through app settings instead of "magic string". Also shorten
+  the connection string so it points at the current folder somewhere, instead of my local machine.
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
