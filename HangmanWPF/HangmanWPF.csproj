@@ -97,7 +97,7 @@
     <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
-    <Compile Include="Models\MessageBus\HangmanRoundMessage.cs" />
+    <Compile Include="Models\MessageBus\HangmanRoundFinishedMessage.cs" />
     <Compile Include="Models\MessageBus\IMessageBus.cs" />
     <Compile Include="Models\MessageBus\MessageBus.cs" />
     <Compile Include="Models\HangmanOptionsSettings_SettingsFile.cs" />
