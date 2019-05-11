@@ -20,6 +20,8 @@ namespace HangmanWPF.ViewModels
 
         //TODO: Invert dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
+
+        //Helper class with state
         private ImageSetEnumerator _ImageSetProgresser = new ImageSetEnumerator();
 
         public ObservableCollection<LetterViewModel> LettersCollection { get; set; }

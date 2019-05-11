@@ -15,9 +15,6 @@
 
     </Window.Resources>
 
-
-
-
     <Grid DataContext="{StaticResource HistoryViewModel}"
           d:DataContext="{d:DesignData Source=/DesignData/WordHistoryDesignData.xaml}">
 
@@ -30,7 +27,6 @@
 
             <ListView x:Name="WordHistoryList"
                 ItemsSource="{Binding GameHistory}">
-
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">

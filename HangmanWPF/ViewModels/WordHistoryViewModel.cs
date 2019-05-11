@@ -1,13 +1,13 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace HangmanWPF.ViewModels
 {
-    class WordHistoryViewModel
+    public class WordHistoryViewModel
     {
-
         public ObservableCollection<HangmanGameRecord> GameHistory { get; set; } = new ObservableCollection<HangmanGameRecord>();
 
         public ICommand OpenInGoogleCommand { get; set; }
@@ -16,12 +16,12 @@ namespace HangmanWPF.ViewModels
         {
             OpenInGoogleCommand = new ActionCommand<string>(this.OpenInGoogle);
 
-            MessageBus.Instance.Subscribe<HangmanRoundFinishedMessage>(HandleMessage);
+            GetHistory();
         }
 
-        private void HandleMessage(HangmanRoundFinishedMessage message)
+        private void GetHistory()
         {
-            GameHistory.Add(new HangmanGameRecord(message.Word, message.Won));
+
         }
 
         private void OpenInGoogle(string word)
