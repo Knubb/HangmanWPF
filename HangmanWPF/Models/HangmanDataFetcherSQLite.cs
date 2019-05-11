@@ -5,7 +5,7 @@ using System.Data.SQLite;
 
 namespace HangmanWPF.Models
 {
-    public class HangmanDataFetcherSQLite : IHangmanDataFetcher, IImagSetUploader
+    public class HangmanDataFetcherSQLite : IHangmanDataFetcher, IImagSetUploader, IGameHistoryFetcher, IGameRecordUploader
     {
 
         private const string _ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
@@ -357,6 +357,53 @@ namespace HangmanWPF.Models
                 cmd.Parameters.Add("Image8", DbType.Binary).Value = images[8];
 
                 cmd.ExecuteNonQuery();
+
+                cmd.Dispose();
+                CloseConnection();
+            }
+        }
+
+        public IEnumerable<HangmanGameRecord> FetchHistory()
+        {
+            List<HangmanGameRecord> records = new List<HangmanGameRecord>();
+
+            if (OpenConnection())
+            {
+
+                string q = $"SELECT * FROM HangmanGameHistory";
+
+                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    //Creat the record struct
+                    var word = reader.GetString(0);
+                    bool won = reader.GetBoolean(1);
+
+                    records.Add(new HangmanGameRecord(word, won));
+                }
+
+                cmd.Dispose();
+                reader.Close();
+                CloseConnection();
+            }
+
+            return records;
+        }
+
+        public void InsertHistoryRecord(HangmanGameRecord record)
+        {
+            if (OpenConnection())
+            {
+
+                string q = $"INSERT INTO HangmanGameHistory (Word, Won?) VALUES (@Word, @Won?)";
+
+                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
+
+                cmd.Parameters.Add("Word", DbType.String).Value = record.Word;
+                cmd.Parameters.Add("Won?", DbType.Boolean).Value = record.Won;
 
                 cmd.Dispose();
                 CloseConnection();

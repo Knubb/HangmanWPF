@@ -1,6 +1,5 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -8,7 +7,7 @@ namespace HangmanWPF.ViewModels
 {
     public class WordHistoryViewModel
     {
-        public ObservableCollection<HangmanGameRecord> GameHistory { get; set; } = new ObservableCollection<HangmanGameRecord>();
+        public ObservableCollection<HangmanGameRecord> GameHistoryCollection { get; set; } = new ObservableCollection<HangmanGameRecord>();
 
         public ICommand OpenInGoogleCommand { get; set; }
 
@@ -21,7 +20,12 @@ namespace HangmanWPF.ViewModels
 
         private void GetHistory()
         {
+            IGameHistoryFetcher fetcher = new HangmanDataFetcherSQLite();
 
+            foreach (var item in fetcher.FetchHistory())
+            {
+                GameHistoryCollection.Add(item);
+            }
         }
 
         private void OpenInGoogle(string word)

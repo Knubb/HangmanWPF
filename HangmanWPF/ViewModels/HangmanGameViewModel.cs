@@ -13,15 +13,13 @@ namespace HangmanWPF.ViewModels
 {
     public class HangmanGameViewModel : BaseViewModel
     {
-
         private const int _Tries = 8;
-
-        private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
 
         //TODO: Invert dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
 
-        //Helper class with state
+        //Helper classes with state
+        private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
         private ImageSetEnumerator _ImageSetProgresser = new ImageSetEnumerator();
 
         public ObservableCollection<LetterViewModel> LettersCollection { get; set; }

@@ -94,6 +94,8 @@
     <Compile Include="Models\IHangmanOptionsSettings.cs" />
     <Compile Include="Models\ImageSetEnumerator.cs" />
     <Compile Include="Models\Interfaces\IDialogViewModel.cs" />
+    <Compile Include="Models\Interfaces\IGameHistoryFetcher.cs" />
+    <Compile Include="Models\Interfaces\IGameRecordUploader.cs" />
     <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
