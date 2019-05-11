@@ -12,7 +12,6 @@ namespace HangmanWPF.ViewModels
 
         public ICommand OpenInGoogleCommand { get; set; }
 
-
         public WordHistoryViewModel()
         {
             OpenInGoogleCommand = new ActionCommand<string>(this.OpenInGoogle);
@@ -22,14 +21,11 @@ namespace HangmanWPF.ViewModels
 
         private void HandleMessage(HangmanRoundFinishedMessage message)
         {
-
             GameHistory.Add(new HangmanGameRecord(message.Word, message.Won));
         }
 
         private void OpenInGoogle(string word)
         {
-
-
             if (string.IsNullOrWhiteSpace(word))
             {
                 return;
