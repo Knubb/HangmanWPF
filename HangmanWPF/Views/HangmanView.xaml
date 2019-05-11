@@ -15,9 +15,6 @@
 
         <conv:CharacterToStringConverter x:Key="CharToString"/>
 
-        <views:WordHistoryWindow x:Key="HistoryWindow" />
-        <views:HangmanOptionsWindow x:Key="OptionsWindow" />
-
         <DataTemplate x:Key="LetterButtonTemplate">
             <Button  Width="30" Height="30"
                            Content="{Binding Path=Letter, Converter={StaticResource CharToString}}"
@@ -42,9 +39,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-
-        
-
         <!--Top bar-->
         <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Padding="5"
                 Background="{StaticResource MainBackgroundLigthBrush}">
@@ -60,14 +54,12 @@
                 <Button Content="History" Width="100" Height="auto"
                         HorizontalAlignment="Center"
                         Command="{Binding Path=ViewHistoryCommand}"
-                        CommandParameter="{StaticResource HistoryWindow}"
                         Style="{StaticResource MenuButtons}">
                 </Button>
 
                 <Button Content="Options" Width="100" Height="auto"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=ViewOptionsCommand}"
-                        CommandParameter="{StaticResource OptionsWindow}"
                         Style="{StaticResource MenuButtons}">
                 </Button>
 

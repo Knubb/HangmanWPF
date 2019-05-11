@@ -1,5 +1,6 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
+using HangmanWPF.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -57,21 +58,23 @@ namespace HangmanWPF.ViewModels
         {
             GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
-            ViewHistoryCommand = new ActionCommand<Window>(this.OpenHistoryWindow);
-            ViewOptionsCommand = new ActionCommand<Window>(this.OpenOptionsWindow);
+            ViewHistoryCommand = new ActionCommand(this.OpenHistoryWindow);
+            ViewOptionsCommand = new ActionCommand(this.OpenOptionsWindow);
 
             InitializeLettersCollection();
             StartNewRound();
         }
 
-        private void OpenOptionsWindow(Window view)
+        private void OpenOptionsWindow()
         {
-            view.ShowDialog();
+            var v = new HangmanOptionsWindow();
+            v.ShowDialog();
         }
 
-        private void OpenHistoryWindow(Window view)
+        private void OpenHistoryWindow()
         {
-            view.Show();
+            var v = new WordHistoryWindow();
+            v.ShowDialog();
         }
 
         private void GuessLetter(char character)
