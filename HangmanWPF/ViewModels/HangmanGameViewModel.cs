@@ -17,6 +17,7 @@ namespace HangmanWPF.ViewModels
 
         //TODO: Invert dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
+        private IHangmanDataUploader _DataUploader = new HangmanDataUploaderSQLite();
 
         //Helper classes with state
         private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
@@ -244,7 +245,9 @@ namespace HangmanWPF.ViewModels
                 Won = CheckWinCondition()
             };
 
-            MessageBus.Instance.Publish<HangmanRoundFinishedMessage>(message);
+
+            _DataUploader.InsertHistoryRecord(new HangmanGameRecord(_RoundManager.WordToGuess, CheckWinCondition()));
+            //MessageBus.Instance.Publish<HangmanRoundFinishedMessage>(message);
         }
 
         #region Helpers

@@ -5,11 +5,10 @@ using System.Data.SQLite;
 
 namespace HangmanWPF.Models
 {
-    public class HangmanDataFetcherSQLite : IHangmanDataFetcher, IImagSetUploader, IGameHistoryFetcher, IGameRecordUploader
+    public class HangmanDataFetcherSQLite : IHangmanDataFetcher
     {
 
         private const string _ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
-        private const int _ImageSetSize = 9;
 
         private SQLiteConnection _Connection;
 
@@ -324,45 +323,6 @@ namespace HangmanWPF.Models
             }
         }
 
-        public void InsertImageSet(IList<byte[]> images)
-        {
-
-            if (images.Count != _ImageSetSize)
-            {
-                throw new InvalidOperationException("Collection count does not match requirements");
-            }
-
-            //Get Imagesetcount to figure out what ID we should set
-
-            var count = ImageSetCount;
-
-            if (OpenConnection())
-            {
-
-                string cmnd = $"INSERT INTO HangmanImageSets (ID, Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8)" +
-                                $"VALUES ( @ID, @Image0, @Image1, @Image2, @Image3, @Image4, @Image5, @Image6, @Image7, @Image8 )";
-
-                SQLiteCommand cmd = new SQLiteCommand(cmnd, _Connection);
-
-                cmd.Parameters.Add("ID", DbType.Int32).Value = count + 1;
-
-                cmd.Parameters.Add("Image0", DbType.Binary).Value = images[0];
-                cmd.Parameters.Add("Image1", DbType.Binary).Value = images[1];
-                cmd.Parameters.Add("Image2", DbType.Binary).Value = images[2];
-                cmd.Parameters.Add("Image3", DbType.Binary).Value = images[3];
-                cmd.Parameters.Add("Image4", DbType.Binary).Value = images[4];
-                cmd.Parameters.Add("Image5", DbType.Binary).Value = images[5];
-                cmd.Parameters.Add("Image6", DbType.Binary).Value = images[6];
-                cmd.Parameters.Add("Image7", DbType.Binary).Value = images[7];
-                cmd.Parameters.Add("Image8", DbType.Binary).Value = images[8];
-
-                cmd.ExecuteNonQuery();
-
-                cmd.Dispose();
-                CloseConnection();
-            }
-        }
-
         public IEnumerable<HangmanGameRecord> FetchHistory()
         {
             List<HangmanGameRecord> records = new List<HangmanGameRecord>();
@@ -393,21 +353,5 @@ namespace HangmanWPF.Models
             return records;
         }
 
-        public void InsertHistoryRecord(HangmanGameRecord record)
-        {
-            if (OpenConnection())
-            {
-
-                string q = $"INSERT INTO HangmanGameHistory (Word, Won?) VALUES (@Word, @Won?)";
-
-                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
-
-                cmd.Parameters.Add("Word", DbType.String).Value = record.Word;
-                cmd.Parameters.Add("Won?", DbType.Boolean).Value = record.Won;
-
-                cmd.Dispose();
-                CloseConnection();
-            }
-        }
     }
 }

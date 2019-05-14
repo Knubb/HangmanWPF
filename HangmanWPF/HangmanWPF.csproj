@@ -90,12 +90,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Enums\GraphicOption.cs" />
+    <Compile Include="Models\HangmanDataUploaderSQLite.cs" />
     <Compile Include="Models\HangmanGameRecord.cs" />
     <Compile Include="Models\IHangmanOptionsSettings.cs" />
     <Compile Include="Models\ImageSetEnumerator.cs" />
     <Compile Include="Models\Interfaces\IDialogViewModel.cs" />
     <Compile Include="Models\Interfaces\IGameHistoryFetcher.cs" />
-    <Compile Include="Models\Interfaces\IGameRecordUploader.cs" />
+    <Compile Include="Models\Interfaces\IGameHistoryUploader.cs" />
+    <Compile Include="Models\Interfaces\IHangmanDataUploader.cs" />
     <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />

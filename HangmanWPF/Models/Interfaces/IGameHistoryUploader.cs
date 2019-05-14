@@ -2,7 +2,7 @@
 
 namespace HangmanWPF.Models
 {
-    public interface IGameRecordUploader
+    public interface IGameHistoryUploader
     {
         void InsertHistoryRecord(HangmanGameRecord records);
     }
