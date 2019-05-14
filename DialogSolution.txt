@@ -11,3 +11,6 @@ to be used as the datacontext, instead of fetching one from a container.
 
 and in the case of windows intended to be used as dialogs where we want to get some sort of result,
 this allows us to directly access the underlying viewmodel and get the properties we need from it.
+
+(I realize this makes it harder to test since we can't inject dependencies through the constructors of our viewmodels
+ (XAML doesn't support parameterized constrcutors), so we would have to define those dependencies/services elsewhere)

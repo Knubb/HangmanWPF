@@ -10,15 +10,13 @@ X Create a SQLite-table for images.
 X Create loading of images from SQLite-database.
 x Add Style / Add more style.
 x Add persistance to optionswindow
-
-Seperate DataFetcher from DataUploader by creating a separate class for upload-operations.
+X Seperate DataFetcher from DataUploader by creating a separate class for upload-operations.
+Add the ability to guess letters through key-presses.
 Figure out the reason behind the high memory usage.
-Add caching imagesets.
 Make UploadImagSetWindow close on successful upload.
 
-
 Refactor:
-(IHangmanDataFetcher) Research and try to find cleaner structure for handling db-connections/Fetching data (SRP violation?).
+(IHangmanDataFetcher) Research and try to find cleaner structure for handling db-connections/Fetching and uploading data (DRY Violation).
 (HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
 (HangmanDataFetcherSQLite) Use "using" keyword for handling disposing/closing objects.
 X (HangmanGameViewModel) Remove _HangmanRoundManager ctor and enforce using the StartNew()-method.
