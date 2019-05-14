@@ -100,6 +100,7 @@
     <Compile Include="Models\Interfaces\IHangmanDataUploader.cs" />
     <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
+    <Compile Include="Models\Interfaces\IRepository.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
     <Compile Include="Models\MessageBus\HangmanRoundFinishedMessage.cs" />
     <Compile Include="Models\MessageBus\IMessageBus.cs" />
