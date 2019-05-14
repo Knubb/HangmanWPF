@@ -1,0 +1,16 @@
+I've created a baseclass for all windows intended to be used as dialogs and return some sort of result.
+The baseclass is generic and expects a IDialogViewModel, and it's up to the implementing window(the dialog) to specify 
+the type of ViewModel to be used with the window, and to define an instance of that viewmodel in it's
+'Resources'(preferably in XAML). The baseclass then exposes that viewmodel-instance. 
+Although this does create a tight coupling between the window and the viewmodel, i believe that's fine.
+
+Reasoning:
+
+My philosophy here is that each window in the application should host its own viewmodel-instance (in its resources)
+to be used as the datacontext, instead of fetching one from a container. 
+
+and in the case of windows intended to be used as dialogs where we want to get some sort of result,
+this allows us to directly access the underlying viewmodel and get the properties we need from it.
+
+(I realize this makes it harder to test since we can't inject dependencies through the constructors of our viewmodels
+ (XAML doesn't support parameterized constrcutors), so we would have to define those dependencies/services elsewhere)

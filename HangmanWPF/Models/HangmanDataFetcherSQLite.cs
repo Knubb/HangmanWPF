@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SQLite;
 
 namespace HangmanWPF.Models
 {
     public class HangmanDataFetcherSQLite : IHangmanDataFetcher
     {
+
+        private const string _ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
+
         private SQLiteConnection _Connection;
 
         private int _WordCount = -1;
@@ -22,9 +26,6 @@ namespace HangmanWPF.Models
         }
 
         private int _ImageSetCount = -1;
-
-        private Stack<string> _CachedWords = new Stack<string>();
-
         public int ImageSetCount
         {
             get
@@ -37,12 +38,12 @@ namespace HangmanWPF.Models
             }
         }
 
-        //Constructor
+        private Stack<string> _CachedWords = new Stack<string>();
+
         public HangmanDataFetcherSQLite()
         {
             Initialize();
         }
-
 
         public string FetchRandomWord()
         {
@@ -54,17 +55,19 @@ namespace HangmanWPF.Models
             return _CachedWords.Pop().ToUpper();
         }
 
-        public IEnumerable<byte[]> FetchRandomImageSet()
+        public IEnumerable<byte[]> FetchRandomImageSetData()
         {
             return GetRandomImageSet();
         }
-       
+
+        public IEnumerable<IEnumerable<byte[]>> FetchAllImageSetsAsData()
+        {
+            return GetAllImageSets();
+        }
 
         private void Initialize()
         {
-            string connectionString = "Data Source=C:\\Users\\knubb\\OneDrive\\Egna projekt\\Git\\Repositories\\HangmanWPF\\HangmanWPF\\HangmanData\\HangmanDataBase.db;Version=3";
-
-            _Connection = new SQLiteConnection(connectionString);
+            _Connection = new SQLiteConnection(_ConnectionString);
         }
 
         private int GetWordCount()
@@ -87,6 +90,8 @@ namespace HangmanWPF.Models
                     res = reader.GetInt32(0);
                 }
 
+                cmd.Dispose();
+                reader.Close();
                 CloseConnection();
             }
 
@@ -113,10 +118,53 @@ namespace HangmanWPF.Models
                     res = reader.GetInt32(0);
                 }
 
+                cmd.Dispose();
+                reader.Close();
                 CloseConnection();
             }
 
             return res;
+        }
+
+        public void FetchImageSetByID(int id)
+        {
+            GetImageSetByID(id);
+        }
+
+        private IEnumerable<byte[]> GetImageSetByID(int id)
+        {
+
+            List<byte[]> imagedata = new List<byte[]>();
+
+            if (OpenConnection())
+            {
+
+                string q = $"SELECT * FROM HangmanImageSets WHERE ID {id}";
+
+                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+
+                if (reader.Read())
+                {
+                    imagedata.Add((byte[])reader["Image0"]);
+                    imagedata.Add((byte[])reader["Image1"]);
+                    imagedata.Add((byte[])reader["Image2"]);
+                    imagedata.Add((byte[])reader["Image3"]);
+                    imagedata.Add((byte[])reader["Image4"]);
+                    imagedata.Add((byte[])reader["Image5"]);
+                    imagedata.Add((byte[])reader["Image6"]);
+                    imagedata.Add((byte[])reader["Image7"]);
+                    imagedata.Add((byte[])reader["Image8"]);
+                }
+
+                cmd.Dispose();
+                reader.Close();
+                CloseConnection();
+            }
+
+            return imagedata;
         }
 
         private void PopulateWordCache()
@@ -148,6 +196,8 @@ namespace HangmanWPF.Models
 
                 }
 
+                cmd.Dispose();
+                reader.Close();
                 CloseConnection();
             }
 
@@ -182,10 +232,54 @@ namespace HangmanWPF.Models
                     imagedata.Add((byte[])reader["Image8"]);
                 }
 
+                cmd.Dispose();
+                reader.Close();
                 CloseConnection();
             }
 
             return imagedata;
+        }
+
+        private IEnumerable<IEnumerable<byte[]>> GetAllImageSets()
+        {
+            
+            List<List<byte[]>> imagesetdata = new List<List<byte[]>>();
+
+            if (OpenConnection())
+            {
+
+                string q = "SELECT * FROM HangmanImageSets";
+
+                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
+
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+
+                while (reader.Read())
+                {
+                    List<byte[]> current = new List<byte[]>();
+
+                    current.Add((byte[])reader["Image0"]);
+                    current.Add((byte[])reader["Image1"]);
+                    current.Add((byte[])reader["Image2"]);
+                    current.Add((byte[])reader["Image3"]);
+                    current.Add((byte[])reader["Image4"]);
+                    current.Add((byte[])reader["Image5"]);
+                    current.Add((byte[])reader["Image6"]);
+                    current.Add((byte[])reader["Image7"]);
+                    current.Add((byte[])reader["Image8"]);
+
+                    imagesetdata.Add(current);
+                }
+
+                cmd.Dispose();
+                reader.Close();
+                CloseConnection();
+            }
+
+            return imagesetdata;
+
+
         }
 
         private bool OpenConnection()
@@ -229,33 +323,35 @@ namespace HangmanWPF.Models
             }
         }
 
-        //public void InsertImageSet(List<byte[]> images)
-        //{
+        public IEnumerable<HangmanGameRecord> FetchHistory()
+        {
+            List<HangmanGameRecord> records = new List<HangmanGameRecord>();
 
-        //    if (OpenConnection())
-        //    {
+            if (OpenConnection())
+            {
 
-        //        string cmnd = $"INSERT INTO HangmanImageSets (ID, Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8)" +
-        //                        $"VALUES ( @ID, @Image0, @Image1, @Image2, @Image3, @Image4, @Image5, @Image6, @Image7, @Image8 )";
+                string q = $"SELECT * FROM HangmanGameHistory";
 
-        //        SQLiteCommand command = new SQLiteCommand(cmnd, _Connection);
+                SQLiteCommand cmd = new SQLiteCommand(q, _Connection);
 
-        //        command.Parameters.Add("ID", DbType.Int16).Value = 1;
+                SQLiteDataReader reader = cmd.ExecuteReader();
 
-        //        command.Parameters.Add("Image0", DbType.Binary).Value = images[0];
-        //        command.Parameters.Add("Image1", DbType.Binary).Value = images[1];
-        //        command.Parameters.Add("Image2", DbType.Binary).Value = images[2];
-        //        command.Parameters.Add("Image3", DbType.Binary).Value = images[3];
-        //        command.Parameters.Add("Image4", DbType.Binary).Value = images[4];
-        //        command.Parameters.Add("Image5", DbType.Binary).Value = images[5];
-        //        command.Parameters.Add("Image6", DbType.Binary).Value = images[6];
-        //        command.Parameters.Add("Image7", DbType.Binary).Value = images[7];
-        //        command.Parameters.Add("Image8", DbType.Binary).Value = images[8];
+                while (reader.Read())
+                {
+                    //Creat the record struct
+                    var word = reader.GetString(0);
+                    bool won = reader.GetBoolean(1);
 
-        //        command.ExecuteNonQuery();
+                    records.Add(new HangmanGameRecord(word, won));
+                }
 
-        //        CloseConnection();
-        //    }
-        //}
+                cmd.Dispose();
+                reader.Close();
+                CloseConnection();
+            }
+
+            return records;
+        }
+
     }
 }

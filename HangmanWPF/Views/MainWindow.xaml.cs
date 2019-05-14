@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 
 namespace HangmanWPF
 {
@@ -7,6 +9,12 @@ namespace HangmanWPF
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

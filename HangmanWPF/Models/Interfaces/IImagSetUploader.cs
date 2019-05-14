@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace HangmanWPF.Models
 {
-    public interface IHangmanDataFetcher : IWordFetcher, IImageSetFetcher
+    public interface IImagSetUploader
     {
-
+        void InsertImageSet(IList<byte[]> images);
     }
 }

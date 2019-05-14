@@ -9,16 +9,7 @@ namespace HangmanWPF.Models
         public int TriesLeft { get; set; }
 
         /// <summary>
-        /// Set up a round of Hangman
-        /// </summary>
-        public HangmanRoundManager(string word, int tries)
-        {
-            WordToGuess = word;
-            TriesLeft = tries;
-        }
-
-        /// <summary>
-        /// Reuse and reset this object with new settings
+        /// Starts a new round of hangman
         /// </summary>
         public void StartNew(string word, int tries)
         {

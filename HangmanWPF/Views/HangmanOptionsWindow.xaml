@@ -1,0 +1,148 @@
+﻿<Window x:Class="HangmanWPF.Views.HangmanOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vms="clr-namespace:HangmanWPF.ViewModels"
+        xmlns:model="clr-namespace:HangmanWPF.Models"
+        mc:Ignorable="d"
+        Title="Hangman options"
+        WindowStartupLocation="CenterScreen"
+        Width="800"
+        SizeToContent="Height">
+
+    <Window.Resources>
+
+        <vms:HangmanOptionsViewModel x:Key="OptionsViewModel"/>
+
+        <DataTemplate x:Key="ImageBoxTemplate">
+
+            <Border Width="120" Height="120" BorderThickness="1" BorderBrush="Black" x:Name="ImageBox">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding ElementName=ImageBox, Path=DataContext}" Stretch="UniformToFill" />
+                </Border.Background>
+            </Border>
+
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource OptionsViewModel}"
+        Background="{StaticResource MainBackgroundLigthBrush}">
+
+        <StackPanel>
+
+            <Border BorderThickness="0,0,0,2" BorderBrush="Wheat" Padding="5">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="190"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Hangman Graphics:"
+                           FontWeight="Bold"
+                           FontSize="{StaticResource FontSizeRegular}"
+                           TextWrapping="Wrap">
+                    </TextBlock>
+
+                    <StackPanel Grid.Column="1">
+
+                        <RadioButton GroupName="Graphics" Name="RandomizeOnceOption"
+                                     Command="{Binding Path=ChangeGraphicsOptionCommand}">
+                            <RadioButton.CommandParameter>
+                                <model:GraphicsOption>RandomizeOnce</model:GraphicsOption>
+                            </RadioButton.CommandParameter>
+
+                            <TextBlock Text="Randomize graphics once on app start"/>
+
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}">
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=CurrentGraphicsOption}">
+                                            <DataTrigger.Value>
+                                                <model:GraphicsOption>RandomizeOnce</model:GraphicsOption>
+                                            </DataTrigger.Value>
+                                            <Setter  Property="IsChecked" Value="True"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+                            
+                        </RadioButton>
+
+                        <RadioButton GroupName="Graphics" Name="RandomizeEachRoundOption"
+                                     Command="{Binding Path=ChangeGraphicsOptionCommand}">
+                            <RadioButton.CommandParameter>
+                                <model:GraphicsOption>RandomizeEachRound</model:GraphicsOption>
+                            </RadioButton.CommandParameter>
+
+                            <TextBlock Text="Randomize graphics each round"/>
+
+                            <RadioButton.Style>
+                                <Style TargetType="{x:Type RadioButton}">
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=CurrentGraphicsOption}">
+                                            <DataTrigger.Value>
+                                                <model:GraphicsOption>RandomizeEachRound</model:GraphicsOption>
+                                            </DataTrigger.Value>
+                                            <Setter  Property="IsChecked" Value="True"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>
+
+
+                        </RadioButton>
+
+                        <StackPanel Orientation="Vertical">
+
+                            <RadioButton GroupName="Graphics" Name="UseSelectedOption">
+                                <TextBlock Text="Use select graphics"/>
+
+                                <RadioButton.Style>
+                                    <Style TargetType="{x:Type RadioButton}">
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=CurrentGraphicsOption}" >
+                                                <DataTrigger.Value>
+                                                    <model:GraphicsOption>UseSelected</model:GraphicsOption>
+                                                </DataTrigger.Value>
+                                                <Setter  Property="IsChecked" Value="True"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </RadioButton.Style>
+                            </RadioButton>
+
+                            <Viewbox>
+                                <ItemsControl Grid.Row="0" ItemsSource="{Binding Path=SelectedImageSetCollection}"
+                                              ItemTemplate="{StaticResource ImageBoxTemplate}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+
+                            </Viewbox>
+                            
+                        </StackPanel>
+
+                        <Button Width="auto" Height="50" Margin="5"
+                                Content="Select new graphics"
+                                Style="{StaticResource MenuButtons}"
+                                Command="{Binding Path=GoToSelectGraphicsWindow}"/>
+
+                        <Button Width="auto" Height="50" Margin="5"
+                                Content="Upload graphics"
+                                Style="{StaticResource MenuButtons}"
+                                Command="{Binding Path=GoToUploadGraphicsWindow}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Window>

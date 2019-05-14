@@ -1,42 +1,27 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
-using System;
+using HangmanWPF.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace HangmanWPF.ViewModels
 {
     public class HangmanGameViewModel : BaseViewModel
     {
+        private const int _Tries = 8;
 
-        #region Debug display
-
-        private string _Word;
-        public string Word
-        {
-            get { return _Word; }
-            set
-            {
-                _Word = value;
-                NotifyPropertyChanged(this, nameof(Word));
-            }
-        }
-
-        #endregion
-
-        public const int Tries = 8;
-        private HangmanRoundManager _RoundManager { get; set; }
-
-        //Hard dependencies
+        //TODO: Invert dependencies
         private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
+        private IHangmanDataUploader _DataUploader = new HangmanDataUploaderSQLite();
 
-        private Queue<ImageSource> _ProgressImages;
+        //Helper classes with state
+        private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
+        private ImageSetEnumerator _ImageSetProgresser = new ImageSetEnumerator();
 
         public ObservableCollection<LetterViewModel> LettersCollection { get; set; }
 
@@ -63,34 +48,38 @@ namespace HangmanWPF.ViewModels
                 _ProgressImage = value;
                 this.NotifyPropertyChanged(this, nameof(ProgressImage));
             }
-        }
-
-        private string _Difficulty;
-        public string Difficulty
-        {
-            get { return _Difficulty; }
-            set
-            {
-                _Difficulty = value;
-                NotifyPropertyChanged(this, nameof(Difficulty));
-            }
-        }
+        } 
 
         public ICommand GuessLetterCommand { get; set; }
         public ICommand NewRoundCommand { get; set; }
+        public ICommand ViewHistoryCommand { get; set; }
+        public ICommand ViewOptionsCommand { get; set; }
 
         public HangmanGameViewModel()
         {
             GuessLetterCommand = new ActionCommand<char>(this.GuessLetter);
             NewRoundCommand = new ActionCommand(this.StartNewRound);
+            ViewHistoryCommand = new ActionCommand(this.OpenHistoryWindow);
+            ViewOptionsCommand = new ActionCommand(this.OpenOptionsWindow);
 
-            InitializeRound();
+            InitializeLettersCollection();
+            StartNewRound();
         }
 
-        //We could move these methods to the HangmanRoundManager object, but that would make the command-object dependendent on an object whose lifespan is unknown
+        private void OpenOptionsWindow()
+        {
+            var v = new HangmanOptionsWindow();
+            v.ShowDialog();
+        }
+
+        private void OpenHistoryWindow()
+        {
+            var v = new WordHistoryWindow();
+            v.ShowDialog();
+        }
+
         private void GuessLetter(char character)
         {
-
             if (_RoundManager.MakeGuess(character))
             {
 
@@ -102,26 +91,22 @@ namespace HangmanWPF.ViewModels
             {
                 LettersCollection.Single((x) => x.Letter == character).UpdateState(LetterState.Wrong);
 
-                SetNextProgressImage();
+                SetNextImageInSet();
             }
 
-            CheckWinCondition();
+            CheckWinOrLoss();
         }
 
-        private void InitializeRound()
-        {     
-            InitializeRoundManager();
-            InitializeMaskedWord();
-            InitializeProgressImagesFromDataBase();
-            InitializeLettersCollection();
-        }
-
-        private void InitializeRoundManager()
+        private void StartNewRound()
         {
-            //Setup round manager object
-            _RoundManager = new HangmanRoundManager(_DataFetcher.FetchRandomWord(), Tries);
+            foreach (var lettervm in LettersCollection)
+            {
+                lettervm.UpdateState(LetterState.NoGuess);
+            }
 
-            Word = _RoundManager.WordToGuess; //DEV PROP
+            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), _Tries);
+            InitializeMaskedWord();
+            InitializeProgressImages();
         }
 
         private void InitializeLettersCollection()
@@ -136,16 +121,36 @@ namespace HangmanWPF.ViewModels
             }
         }
 
-        private void InitializeProgressImagesFromDataBase()
+        private void InitializeProgressImages()
         {
-            _ProgressImages = new Queue<ImageSource>();
 
-            foreach (var dataset in _DataFetcher.FetchRandomImageSet())
+            _ImageSetProgresser.Reset();
+
+            switch (SettingsContainer.HangmanOptions.GraphicsOption)
             {
-                _ProgressImages.Enqueue((ImageSource)new ImageSourceConverter().ConvertFrom(dataset));
+                case GraphicsOption.RandomizeOnce:
+
+                    if (!_ImageSetProgresser.IsInitialized)
+                    {
+                        _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+                    }
+                    //Else: Use the same imageset again.
+
+
+                    break;
+                case GraphicsOption.RandomizeEachRound:
+
+                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+
+                    break;
+                case GraphicsOption.UseSelected:
+
+                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(SettingsContainer.HangmanOptions.SelectedImageSetData));
+
+                    break;
             }
 
-            SetNextProgressImage();
+            SetNextImageInSet();
         }
 
         private void InitializeMaskedWord()
@@ -175,49 +180,50 @@ namespace HangmanWPF.ViewModels
             this.MaskedWord = sb.ToString();
         }
 
-        private void SetNextProgressImage()
+        private void SetNextImageInSet()
         {
-            //Update progress image
-            try
-            {
-                ProgressImage = (BitmapSource)_ProgressImages.Dequeue();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _ImageSetProgresser.MoveNext();
+            ProgressImage = _ImageSetProgresser.Current as BitmapSource;
         }
 
-        private void CheckWinCondition()
+        private void CheckWinOrLoss()
         {
-            if (_RoundManager.TriesLeft < 1)
-            {
-                OnRoundLost();
-            }
-            else if (MaskedWord == _RoundManager.WordToGuess)
+            if (CheckWinCondition())
             {
                 OnRoundWon();
             }
+
+            if (CheckLoseCondition())
+            {
+                OnRoundLost();
+            }
         }
 
-        private void StartNewRound()
+        private bool CheckWinCondition()
         {
-            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), Tries);
-
-            Word = _RoundManager.WordToGuess; //DEV PROP
-
-            foreach (var lettervm in LettersCollection)
+            if (MaskedWord == _RoundManager.WordToGuess)
             {
-                lettervm.UpdateState(LetterState.NoGuess);
+                return true;
             }
 
-            InitializeMaskedWord();
-            InitializeProgressImagesFromDataBase();
+            return false;
+        }
+
+        private bool CheckLoseCondition()
+        {
+            if (_RoundManager.TriesLeft < 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void OnRoundWon()
         {
             MessageBox.Show("Round won!");
+
+            PublishRoundResults();
 
             StartNewRound();
         }
@@ -226,7 +232,22 @@ namespace HangmanWPF.ViewModels
         {
             MessageBox.Show("Round lost");
 
+            PublishRoundResults();
+
             StartNewRound();
+        }
+
+        private void PublishRoundResults()
+        {
+            var message = new HangmanRoundFinishedMessage
+            {
+                Word = _RoundManager.WordToGuess,
+                Won = CheckWinCondition()
+            };
+
+
+            _DataUploader.InsertHistoryRecord(new HangmanGameRecord(_RoundManager.WordToGuess, CheckWinCondition()));
+            //MessageBus.Instance.Publish<HangmanRoundFinishedMessage>(message);
         }
 
         #region Helpers
@@ -246,7 +267,6 @@ namespace HangmanWPF.ViewModels
 
             return res.ToArray();
         }
-
 
         #endregion
 
