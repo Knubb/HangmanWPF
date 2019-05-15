@@ -7,7 +7,10 @@
              xmlns:vm="clr-namespace:HangmanWPF.ViewModels"
              xmlns:views="clr-namespace:HangmanWPF.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="700">
+             d:DesignHeight="600" d:DesignWidth="700" 
+             KeyDown="UserControl_KeyDown"
+             Loaded="UserControl_Loaded"
+             Focusable="True">
 
     <UserControl.Resources>
 
@@ -68,8 +71,7 @@
 
         <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="2"
                    Width="auto" Height="auto" FontSize="32" Padding="2"
-                      Text="{Binding MaskedWord}"
-                      x:Name="GuessingPanel">
+                      Text="{Binding MaskedWord}">
         </TextBlock>
 
         <ItemsControl Grid.Column="1" Grid.Row="2" Margin="100,5,100,5" 

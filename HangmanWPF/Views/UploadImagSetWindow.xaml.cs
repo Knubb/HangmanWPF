@@ -2,9 +2,9 @@
 
 namespace HangmanWPF.Views
 {
-    public partial class UploadImagSetWindow : Window
+    public partial class UploadImageSetWindow : Window
     {
-        public UploadImagSetWindow()
+        public UploadImageSetWindow()
         {
             InitializeComponent();
         }

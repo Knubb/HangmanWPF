@@ -1,4 +1,4 @@
-V 0.6
+V 0.7
 
 This is a simple Hangman application written for WPF (Windows).
 Mainly for training purposes.
@@ -6,7 +6,7 @@ Mainly for training purposes.
 ## Project requirements/goals:
 
 Create one or several word-based games with a user-friendly interface.
-Learn about SQLite and database-management.
+Learn about SQLite and database-management/interaction.
 Create a system for letting users help managing the underlying database of words,
 by for example, voting to remove or add words, vote on difficulty of words. etc.
 Allow for user-uploaded content in some graphical elements. Like hangman drawings.

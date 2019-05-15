@@ -104,28 +104,22 @@ namespace HangmanWPF.Models
                 {
                     connection.Open();
 
-                    string q = $"INSERT INTO HangmanImageSets (ID, Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8)" +
-                                    $"VALUES ( @ID, @Image0, @Image1, @Image2, @Image3, @Image4, @Image5, @Image6, @Image7, @Image8 )";
+                    string q = $"INSERT INTO HangmanImageSets (Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8)" +
+                                    $"VALUES (@Image0, @Image1, @Image2, @Image3, @Image4, @Image5, @Image6, @Image7, @Image8 )";
 
                     using (SQLiteCommand cmd = new SQLiteCommand(q, connection))
                     {
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
-                        {
+                        cmd.Parameters.Add("Image0", DbType.Binary).Value = images[0];
+                        cmd.Parameters.Add("Image1", DbType.Binary).Value = images[1];
+                        cmd.Parameters.Add("Image2", DbType.Binary).Value = images[2];
+                        cmd.Parameters.Add("Image3", DbType.Binary).Value = images[3];
+                        cmd.Parameters.Add("Image4", DbType.Binary).Value = images[4];
+                        cmd.Parameters.Add("Image5", DbType.Binary).Value = images[5];
+                        cmd.Parameters.Add("Image6", DbType.Binary).Value = images[6];
+                        cmd.Parameters.Add("Image7", DbType.Binary).Value = images[7];
+                        cmd.Parameters.Add("Image8", DbType.Binary).Value = images[8];
 
-                            cmd.Parameters.Add("ID", DbType.Int32).Value =  new Random().Next();
-
-                            cmd.Parameters.Add("Image0", DbType.Binary).Value = images[0];
-                            cmd.Parameters.Add("Image1", DbType.Binary).Value = images[1];
-                            cmd.Parameters.Add("Image2", DbType.Binary).Value = images[2];
-                            cmd.Parameters.Add("Image3", DbType.Binary).Value = images[3];
-                            cmd.Parameters.Add("Image4", DbType.Binary).Value = images[4];
-                            cmd.Parameters.Add("Image5", DbType.Binary).Value = images[5];
-                            cmd.Parameters.Add("Image6", DbType.Binary).Value = images[6];
-                            cmd.Parameters.Add("Image7", DbType.Binary).Value = images[7];
-                            cmd.Parameters.Add("Image8", DbType.Binary).Value = images[8];
-
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 catch (Exception)

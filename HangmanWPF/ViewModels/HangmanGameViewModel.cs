@@ -17,7 +17,7 @@ namespace HangmanWPF.ViewModels
         private const int _Tries = 8;
 
         private Stack<string> _CachedWords = new Stack<string>();
-        protected Stack<string> CachedWords
+        public Stack<string> CachedWords
         {
             get
             {
@@ -101,7 +101,6 @@ namespace HangmanWPF.ViewModels
         {
             if (_RoundManager.MakeGuess(character))
             {
-
                 LettersCollection.Single((x) => x.Letter == character).UpdateState(LetterState.Correct);
 
                 UpdateMaskedWord(character);
@@ -142,7 +141,6 @@ namespace HangmanWPF.ViewModels
 
         private void InitializeProgressImages()
         {
-
             _ImageSetProgresser.Reset();
 
             switch (SettingsContainer.HangmanOptions.GraphicsOption)

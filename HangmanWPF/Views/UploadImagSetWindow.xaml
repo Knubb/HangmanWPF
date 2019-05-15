@@ -1,4 +1,4 @@
-﻿<Window x:Class="HangmanWPF.Views.UploadImagSetWindow"
+﻿<Window x:Class="HangmanWPF.Views.UploadImageSetWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,7 @@
 
     <Window.Resources>
 
-        <vms:UploadImagSetViewModel x:Key="UploadViewModel" />
+        <vms:UploadImageSetViewModel x:Key="UploadViewModel" />
 
     </Window.Resources>
 
@@ -171,7 +171,8 @@
             <Button Content="Upload"
                     Width="120" Height="90"
                     Margin="2"
-                    Command="{Binding Path=UploadImagesCommand}" 
+                    Command="{Binding Path=ReturnResultsCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                     Style="{StaticResource MenuButtons}"
                     IsDefault="True"/>
 

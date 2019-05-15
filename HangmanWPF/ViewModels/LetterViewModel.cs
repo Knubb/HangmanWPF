@@ -4,7 +4,6 @@ namespace HangmanWPF.ViewModels
 {
     public class LetterViewModel : BaseViewModel
     {
-
         public char Letter { get; }
 
         private LetterState _State;
@@ -25,7 +24,6 @@ namespace HangmanWPF.ViewModels
             this.State = LetterState.NoGuess;
             this.Letter = letter;
         }
-
 
         public void UpdateState(LetterState state)
         {

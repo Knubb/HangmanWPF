@@ -13,19 +13,19 @@ using HangmanWPF.Models;
 
 namespace HangmanWPF.ViewModels
 {
-    public class UploadImagSetViewModel : BaseViewModel
+    public class UploadImageSetViewModel : BaseViewModel , IDialogViewModel
     {
         private const int ImageSetSize = 9;
 
         public ObservableCollection<ImageSource> ImageCollection { get; private set; } = new ObservableCollection<ImageSource>();
 
         public ICommand SelectImageFromExplorerCommand { get; set; }
-        public ICommand UploadImagesCommand { get; set; }
+        public ICommand ReturnResultsCommand { get; set; }
 
-        public UploadImagSetViewModel()
+        public UploadImageSetViewModel()
         {
             SelectImageFromExplorerCommand = new ActionCommand<int>(this.OpenExplorerAndSetImage);
-            UploadImagesCommand = new ActionCommand(this.Upload, this.IsImageSetComplete);
+            ReturnResultsCommand = new ActionCommand<Window>(this.CloseWindowAndReturnTrue, this.CanReturnResult);
 
             //We need to pre-initialize the elements so we can work wíth indices right off the bat, our view binds to 0-7, and we assign new values to these elements by number.
             //Note: We already know what size this collection needs to be, but can't use arrays since they don't implement INotifyCollectionChanged
@@ -63,7 +63,19 @@ namespace HangmanWPF.ViewModels
 
             RepositoryContainer.ImageSets.InsertImageSet(ImageDataTransformHelper.CreateDataCollectionFromImages(ImageCollection));
 
-            MessageBox.Show("Imagset uploaded (hopefully)");
+            MessageBox.Show("Imagset uploaded");
+        }
+
+        public void CloseWindowAndReturnTrue(Window window)
+        {
+            Upload();
+
+            window.DialogResult = true;
+        }
+
+        public bool CanReturnResult()
+        {
+            return IsImageSetComplete();
         }
 
         private bool IsImageSetComplete()
