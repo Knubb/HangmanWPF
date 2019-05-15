@@ -51,7 +51,7 @@ namespace HangmanWPF.ViewModels
 
         private void OpenUploadGraphicsDialog()
         {
-            var view = new UploadImagSetWindow();
+            var view = new UploadImageSetWindow();
 
             view.ShowDialog();
         }

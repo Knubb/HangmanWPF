@@ -13,7 +13,7 @@ x Add persistance to optionswindow
 X Seperate DataFetcher from DataUploader by creating a separate class for upload-operations.
 Add the ability to guess letters through key-presses.
 X Figure out the reason behind the high memory usage.
-Make UploadImagSetWindow close on successful upload.
+X Make UploadImagSetWindow close on successful upload.
 
 Refactor:
 (HangmanGameViewModel) Find other way to cache that make sense. Refactor methods "OnRoundWon/Lost, PublishResults"
