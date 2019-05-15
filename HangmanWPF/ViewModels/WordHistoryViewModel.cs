@@ -20,9 +20,7 @@ namespace HangmanWPF.ViewModels
 
         private void GetHistory()
         {
-            IGameHistoryFetcher fetcher = new HangmanDataFetcherSQLite();
-
-            foreach (var item in fetcher.FetchHistory())
+            foreach (var item in RepositoryContainer.GameRecords.FetchCompleteHistory())
             {
                 GameHistoryCollection.Add(item);
             }

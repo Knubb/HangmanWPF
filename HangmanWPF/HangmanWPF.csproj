@@ -90,18 +90,24 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Enums\GraphicOption.cs" />
-    <Compile Include="Models\HangmanDataUploaderSQLite.cs" />
     <Compile Include="Models\HangmanGameRecord.cs" />
-    <Compile Include="Models\IHangmanOptionsSettings.cs" />
+    <Compile Include="Models\Interfaces\IHangmanOptionsSettings.cs" />
     <Compile Include="Models\ImageSetEnumerator.cs" />
+    <Compile Include="Models\Repositories\HangmanGameRecordRepository_SQLite.cs" />
     <Compile Include="Models\Interfaces\IDialogViewModel.cs" />
     <Compile Include="Models\Interfaces\IGameHistoryFetcher.cs" />
     <Compile Include="Models\Interfaces\IGameHistoryUploader.cs" />
     <Compile Include="Models\Interfaces\IHangmanDataUploader.cs" />
+    <Compile Include="Models\Interfaces\IHangmanGameRecordRepository.cs" />
+    <Compile Include="Models\Interfaces\IImageSetRepository.cs" />
     <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
-    <Compile Include="Models\Interfaces\IRepository.cs" />
+    <Compile Include="Models\Repositories\WordRepository_LocalFile.cs" />
+    <Compile Include="Models\Repositories\WordRepository_SQLite.cs" />
+    <Compile Include="Models\Repositories\ImageSetRepository_SQLite.cs" />
     <Compile Include="Models\Interfaces\ISettings.cs" />
+    <Compile Include="Models\Interfaces\IWordRepository.cs" />
+    <Compile Include="Models\RepositoryContainer.cs" />
     <Compile Include="Models\MessageBus\HangmanRoundFinishedMessage.cs" />
     <Compile Include="Models\MessageBus\IMessageBus.cs" />
     <Compile Include="Models\MessageBus\MessageBus.cs" />
@@ -173,7 +179,6 @@
     <Compile Include="Models\Interfaces\IImageSetFetcher.cs" />
     <Compile Include="Models\Enums\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
-    <Compile Include="Models\HangmanDataFetcherSQLite.cs" />
     <Compile Include="Models\Interfaces\IWordDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
@@ -227,6 +232,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

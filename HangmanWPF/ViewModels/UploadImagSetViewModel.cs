@@ -61,10 +61,7 @@ namespace HangmanWPF.ViewModels
             // https://stackoverflow.com/questions/43289/comparing-two-byte-arrays-in-net
             // https://docs.microsoft.com/en-us/dotnet/api/system.memoryextensions.sequenceequal?view=netstandard-2.1
 
-            //TODO: Invert dependecy
-            IImagSetUploader uploader = new HangmanDataUploaderSQLite();
-
-            uploader.InsertImageSet(ImageDataTransformHelper.CreateDataCollectionFromImages(ImageCollection));
+            RepositoryContainer.ImageSets.InsertImageSet(ImageDataTransformHelper.CreateDataCollectionFromImages(ImageCollection));
 
             MessageBox.Show("Imagset uploaded (hopefully)");
         }

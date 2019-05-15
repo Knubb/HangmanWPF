@@ -1,6 +1,7 @@
 ﻿using HangmanWPF.Commands;
 using HangmanWPF.Models;
 using HangmanWPF.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,9 +16,27 @@ namespace HangmanWPF.ViewModels
     {
         private const int _Tries = 8;
 
-        //TODO: Invert dependencies
-        private IHangmanDataFetcher _DataFetcher = new HangmanDataFetcherSQLite();
-        private IHangmanDataUploader _DataUploader = new HangmanDataUploaderSQLite();
+        private Stack<string> _CachedWords = new Stack<string>();
+        protected Stack<string> CachedWords
+        {
+            get
+            {
+                if (_CachedWords.Count < 1)
+                {
+                    PopulateCache();
+                }
+
+                return _CachedWords;
+            }
+        }
+
+        private void PopulateCache()
+        {
+            foreach (var word in RepositoryContainer.Words.FetchRandomSetOfWords(50))
+            {
+                _CachedWords.Push(word.ToUpper());
+            }
+        }
 
         //Helper classes with state
         private HangmanRoundManager _RoundManager { get; set; } = new HangmanRoundManager();
@@ -104,7 +123,7 @@ namespace HangmanWPF.ViewModels
                 lettervm.UpdateState(LetterState.NoGuess);
             }
 
-            _RoundManager.StartNew(_DataFetcher.FetchRandomWord(), _Tries);
+            _RoundManager.StartNew(CachedWords.Pop(), _Tries);
             InitializeMaskedWord();
             InitializeProgressImages();
         }
@@ -132,7 +151,7 @@ namespace HangmanWPF.ViewModels
 
                     if (!_ImageSetProgresser.IsInitialized)
                     {
-                        _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+                        _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.FetchRandomImageSet()));
                     }
                     //Else: Use the same imageset again.
 
@@ -140,7 +159,7 @@ namespace HangmanWPF.ViewModels
                     break;
                 case GraphicsOption.RandomizeEachRound:
 
-                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(_DataFetcher.FetchRandomImageSetData()));
+                    _ImageSetProgresser.InitializeNewCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.FetchRandomImageSet()));
 
                     break;
                 case GraphicsOption.UseSelected:
@@ -245,9 +264,7 @@ namespace HangmanWPF.ViewModels
                 Won = CheckWinCondition()
             };
 
-
-            _DataUploader.InsertHistoryRecord(new HangmanGameRecord(_RoundManager.WordToGuess, CheckWinCondition()));
-            //MessageBus.Instance.Publish<HangmanRoundFinishedMessage>(message);
+            RepositoryContainer.GameRecords.InsertHistoryRecord(new HangmanGameRecord(_RoundManager.WordToGuess, CheckWinCondition()));
         }
 
         #region Helpers

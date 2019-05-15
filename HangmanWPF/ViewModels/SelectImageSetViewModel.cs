@@ -34,11 +34,8 @@ namespace HangmanWPF.ViewModels
 
         private void FetchImageSetsAndAddToCollection()
         {
-            IImageSetFetcher fetcher = new HangmanDataFetcherSQLite();
-
-            foreach (IEnumerable<byte[]> dataset in fetcher.FetchAllImageSetsAsData())
+            foreach (IEnumerable<byte[]> dataset in RepositoryContainer.ImageSets.FetchAllImageSets())
             {
-
                 List<ImageSource> imagearray = ImageDataTransformHelper.CreateImageCollectionFromData(dataset);
 
                 SelectableImageSetsCollection.Add(imagearray);
