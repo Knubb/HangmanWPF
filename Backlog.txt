@@ -1,4 +1,7 @@
-X (SelectImageSetWindow/ViewModel) Fix being able to click "Select" without selecting anything.
+Add some validation to uploading custom imagesets: Duplicates? Check size of image, enforce a limit.
+Fix GameHistory(records) list order (latest on top) (or add a date column to the db-table for help with sorting)
+
+
 
 Refactor:
 (HangmanGameViewModel) Find other way to cache that make sense. Refactor methods "OnRoundWon/Lost, PublishResults"
@@ -7,4 +10,6 @@ Refactor:
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
+Color scheme choices (Basic: light and dark themes. Advanced: Color picker, and make secondary
+color automatically a compilmentary color to main color)
 
