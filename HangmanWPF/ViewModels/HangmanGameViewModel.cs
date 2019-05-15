@@ -258,12 +258,6 @@ namespace HangmanWPF.ViewModels
 
         private void PublishRoundResults()
         {
-            var message = new HangmanRoundFinishedMessage
-            {
-                Word = _RoundManager.WordToGuess,
-                Won = CheckWinCondition()
-            };
-
             RepositoryContainer.GameRecords.InsertHistoryRecord(new HangmanGameRecord(_RoundManager.WordToGuess, CheckWinCondition()));
         }
 
