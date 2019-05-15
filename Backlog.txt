@@ -16,6 +16,7 @@ X Figure out the reason behind the high memory usage.
 Make UploadImagSetWindow close on successful upload.
 
 Refactor:
+(HangmanGameViewModel) Find other way to cache that make sense. Refactor methods "OnRoundWon/Lost, PublishResults"
 (HangmanOptionsViewModel & SelectHangmanGraphicsViewModel) Figure put how to lower the memory footprint created by repeatly opening the SelectHangmanGraphicsWindow
 (HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
 X (HangmanDataFetcherSQLite) Use "using" keyword for handling disposing/closing objects.
