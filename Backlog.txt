@@ -1,4 +1,4 @@
-(SelectImageSetWindow/ViewModel) Fix being able to click "Select" without selecting anything.
+X (SelectImageSetWindow/ViewModel) Fix being able to click "Select" without selecting anything.
 
 Refactor:
 (HangmanGameViewModel) Find other way to cache that make sense. Refactor methods "OnRoundWon/Lost, PublishResults"

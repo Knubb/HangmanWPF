@@ -13,7 +13,7 @@ namespace HangmanWPF.ViewModels
 
         public ObservableCollection<List<ImageSource>> SelectableImageSetsCollection { get; set; } = new ObservableCollection<List<ImageSource>>();
 
-        public List<ImageSource> SelectedImageSet { get; set; } = new List<ImageSource>();
+        public List<ImageSource> SelectedImageSet { get; set; }
 
         public ICommand MarkSelectionCommand { get; set; }
 
