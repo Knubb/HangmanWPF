@@ -95,12 +95,8 @@
     <Compile Include="Models\ImageSetEnumerator.cs" />
     <Compile Include="Models\Repositories\HangmanGameRecordRepository_SQLite.cs" />
     <Compile Include="Models\Interfaces\IDialogViewModel.cs" />
-    <Compile Include="Models\Interfaces\IGameHistoryFetcher.cs" />
-    <Compile Include="Models\Interfaces\IGameHistoryUploader.cs" />
-    <Compile Include="Models\Interfaces\IHangmanDataUploader.cs" />
     <Compile Include="Models\Interfaces\IHangmanGameRecordRepository.cs" />
     <Compile Include="Models\Interfaces\IImageSetRepository.cs" />
-    <Compile Include="Models\Interfaces\IImagSetUploader.cs" />
     <Compile Include="Models\ImageDataTransformHelper.cs" />
     <Compile Include="Models\Repositories\WordRepository_LocalFile.cs" />
     <Compile Include="Models\Repositories\WordRepository_SQLite.cs" />
@@ -116,7 +112,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\WordHistoryViewModel.cs" />
-    <Compile Include="Models\Interfaces\IHangmanDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanOptionsViewModel.cs" />
     <Compile Include="ViewModels\SelectImageSetViewModel.cs" />
     <Compile Include="ViewModels\UploadImagSetViewModel.cs" />
@@ -173,10 +168,8 @@
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\ActionCommandT.cs" />
     <Compile Include="Converters\CharacterToStringConverter.cs" />
-    <Compile Include="Models\Interfaces\IImageSetFetcher.cs" />
     <Compile Include="Models\Enums\LetterState.cs" />
     <Compile Include="Models\HangmanRoundManager.cs" />
-    <Compile Include="Models\Interfaces\IWordDataFetcher.cs" />
     <Compile Include="ViewModels\HangmanGameViewModel.cs" />
     <Compile Include="ViewModels\HomeMenuViewModel.cs" />
     <Compile Include="ViewModels\LetterViewModel.cs" />

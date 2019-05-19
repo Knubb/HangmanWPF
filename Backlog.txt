@@ -1,10 +1,16 @@
-X (SelectImageSetWindow/ViewModel) Fix being able to click "Select" without selecting anything.
+X Add some validation to uploading custom imagesets: Duplicates? Check size of image, enforce a limit.
+Fix GameHistory(records) list order (latest on top) (or add a date column to the db-table for help with sorting)
+Rename "HangmanRoundManager" to "HangmanRoundHelper", and "ImageSetEnumerator" to ImageSetEnumeratorHelper"
+
 
 Refactor:
+(HangmanGameViewModel) Relocate the "_CachedWords", that responsibility should lie with whatever is provding the words.
 (HangmanGameViewModel) Find other way to cache that make sense. Refactor methods "OnRoundWon/Lost, PublishResults"
 (HangmanOptionsViewModel & SelectHangmanGraphicsViewModel) Figure put how to lower the memory footprint created by repeatly opening the SelectHangmanGraphicsWindow
 (HangmanOptionWindow & SelectHangmanGraphicsWindow) Duplicate datatemplates, use a common source (put in /styles/).
 
 FEATURES:
 Difficulty adjustment. (Affects length of words that can show up).
+Color scheme choices (Basic: light and dark themes. Advanced: Color picker, and make secondary
+color automatically a compilmentary color to main color)
 
