@@ -1,0 +1,24 @@
+﻿<ViewModel:WordHistoryViewModel xmlns:ViewModel="clr-namespace:HangmanWPF.ViewModels" xmlns:Model="clr-namespace:HangmanWPF.Models">
+
+    <ViewModel:WordHistoryViewModel.GameHistory>
+
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>Game1</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>True</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
+
+        <!-- Seems redudant to game 1-->
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>Game2</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>False</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
+
+        <Model:HangmanGameRecord>
+            <Model:HangmanGameRecord.Word>pneumonoultramicroscopicsilicovolcanoconiosis</Model:HangmanGameRecord.Word>
+            <Model:HangmanGameRecord.Won>False</Model:HangmanGameRecord.Won>
+        </Model:HangmanGameRecord>
+
+    </ViewModel:WordHistoryViewModel.GameHistory>
+
+
+</ViewModel:WordHistoryViewModel>
