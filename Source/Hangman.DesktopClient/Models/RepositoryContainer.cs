@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using HangmanWPF.Interfaces;
-using HangmanWPF.Repositories;
+﻿using Hangman.DesktopClient.Interfaces;
+using Hangman.DesktopClient.Repositories;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public static class RepositoryContainer
     {
         public static IWordRepository Words { get; }
-        public static IRepository<IEnumerable<byte[]>> ImageSets { get; }
-        public static IRepository<HangmanGameRecord> GameRecords { get; }
+        public static IImageSetRepository ImageSets { get; }
+        public static IGameRecordRepository GameRecords { get; }
 
         static RepositoryContainer()
         {

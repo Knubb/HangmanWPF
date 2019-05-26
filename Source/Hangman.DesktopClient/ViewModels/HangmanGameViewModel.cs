@@ -1,6 +1,7 @@
-﻿using HangmanWPF.Commands;
-using HangmanWPF.Models;
-using HangmanWPF.Views;
+﻿using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Enums;
+using Hangman.DesktopClient.Models;
+using Hangman.DesktopClient.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,9 +9,8 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using HangmanWPF.Enums;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     // This class has more than one reason to change. Split it. Split it so that 
     // by changing some related functionlity, the place where unrelated functionality exists
@@ -35,7 +35,7 @@ namespace HangmanWPF.ViewModels
 
         private void PopulateCache()
         {
-            foreach (var word in RepositoryContainer.Words.FetchRandomSetOfWords(50))
+            foreach (var word in RepositoryContainer.Words.GetRandomSet(50))
             {
                 _cachedWords.Push(word.ToUpper());
             }
@@ -151,7 +151,7 @@ namespace HangmanWPF.ViewModels
 
                     if (!_imageSetProgresser.IsInitialized)
                     {
-                        _imageSetProgresser.InitializeCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.FetchRandomImageSet()));
+                        _imageSetProgresser.InitializeCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.GetRandom()));
                     }
                     //Else: Use the same imageset again.
 
@@ -159,7 +159,7 @@ namespace HangmanWPF.ViewModels
                     break;
                 case GraphicsOption.RandomizeEachRound:
 
-                    _imageSetProgresser.InitializeCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.FetchRandomImageSet()));
+                    _imageSetProgresser.InitializeCollection(ImageDataTransformHelper.CreateImageCollectionFromData(RepositoryContainer.ImageSets.GetRandom()));
 
                     break;
                 case GraphicsOption.UseSelected:

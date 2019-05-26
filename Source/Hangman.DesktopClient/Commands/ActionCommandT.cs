@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace HangmanWPF.Commands
+namespace Hangman.DesktopClient.Commands
 {
     class ActionCommand<T> : BaseActionCommand, ICommand
     {

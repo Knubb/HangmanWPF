@@ -1,7 +1,7 @@
-﻿using HangmanWPF.Models;
-using HangmanWPF.ViewModels;
+﻿using Hangman.DesktopClient.Models;
+using Hangman.DesktopClient.ViewModels;
 
-namespace HangmanWPF.Views
+namespace Hangman.DesktopClient.Views
 {
     public partial class SelectImageSetWindow : BaseDialogWindow<SelectImageSetViewModel>
     {

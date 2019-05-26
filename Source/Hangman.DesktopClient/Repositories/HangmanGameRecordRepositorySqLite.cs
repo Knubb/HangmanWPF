@@ -1,36 +1,46 @@
-﻿using HangmanWPF.Interfaces;
-using HangmanWPF.Models;
+﻿using Hangman.DesktopClient.Interfaces;
+using Hangman.DesktopClient.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 
-namespace HangmanWPF.Repositories
+namespace Hangman.DesktopClient.Repositories
 {
-    public class HangmanGameRecordRepositorySqLite : IRepository<HangmanGameRecord>
+    public class HangmanGameRecordRepositorySqLite : IGameRecordRepository
     {
-        private const string ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
+        private const string _ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
 
-        public IEnumerable<HangmanGameRecord> Get()
+        public IEnumerable<HangmanGameRecord> GetAll()
         {
-            var records = new List<HangmanGameRecord>();
+            List<HangmanGameRecord> records = new List<HangmanGameRecord>();
 
-            using (var connection = new SQLiteConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(_ConnectionString))
             {
-                connection.Open();
-
-                const string q = "SELECT * FROM HangmanGameHistory";
-                using (var cmd = new SQLiteCommand(q, connection))
+                try
                 {
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var word = reader.GetString(0);
-                            var won = reader.GetBoolean(1);
+                    connection.Open();
 
-                            records.Add(new HangmanGameRecord(word, won));
+                    string q = "SELECT * FROM HangmanGameHistory";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(q, connection))
+                    {
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var word = reader.GetString(0);
+                                bool won = reader.GetBoolean(1);
+
+                                records.Add(new HangmanGameRecord(word, won));
+                            }
                         }
                     }
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
             }
 
@@ -40,17 +50,26 @@ namespace HangmanWPF.Repositories
         public void Create(HangmanGameRecord record)
         {
 
-            using (var connection = new SQLiteConnection(ConnectionString))
+            using (SQLiteConnection connection = new SQLiteConnection(_ConnectionString))
             {
-                connection.Open();
-
-                var q = $"INSERT INTO HangmanGameHistory (Word, Won) VALUES (@Word, @Won)";
-                using (var cmd = new SQLiteCommand(q, connection))
+                try
                 {
-                    cmd.Parameters.Add("Word", DbType.String).Value = record.Word;
-                    cmd.Parameters.Add("Won", DbType.Boolean).Value = record.Won;
+                    connection.Open();
 
-                    cmd.ExecuteNonQuery();
+                    string q = $"INSERT INTO HangmanGameHistory (Word, Won) VALUES (@Word, @Won)";
+
+                    using (SQLiteCommand cmd = new SQLiteCommand(q, connection))
+                    {
+                        cmd.Parameters.Add("Word", DbType.String).Value = record.Word;
+                        cmd.Parameters.Add("Won", DbType.Boolean).Value = record.Won;
+
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
             }
         }

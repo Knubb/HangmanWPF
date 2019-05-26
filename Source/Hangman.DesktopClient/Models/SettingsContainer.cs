@@ -1,6 +1,6 @@
-﻿using HangmanWPF.Interfaces;
+﻿using Hangman.DesktopClient.Interfaces;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public static class SettingsContainer
     {

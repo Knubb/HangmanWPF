@@ -1,7 +1,7 @@
-﻿using HangmanWPF.Models;
+﻿using Hangman.DesktopClient.Models;
 using System.Windows;
 
-namespace HangmanWPF
+namespace Hangman.DesktopClient
 {
     public partial class App : Application
     {

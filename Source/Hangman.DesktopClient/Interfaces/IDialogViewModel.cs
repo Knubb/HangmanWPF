@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace HangmanWPF.Interfaces
+namespace Hangman.DesktopClient.Interfaces
 {
     // Probably not needed.
     public interface IDialogViewModel

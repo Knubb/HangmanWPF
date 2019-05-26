@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using HangmanWPF.Enums;
+using Hangman.DesktopClient.Enums;
 
-namespace HangmanWPF.Interfaces
+namespace Hangman.DesktopClient.Interfaces
 {
     public interface IHangmanOptionsSettings : ISettings
     {

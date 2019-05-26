@@ -1,4 +1,4 @@
-﻿<ViewModel:WordHistoryViewModel xmlns:ViewModel="clr-namespace:HangmanWPF.ViewModels" xmlns:Model="clr-namespace:HangmanWPF.Models">
+﻿<ViewModel:WordHistoryViewModel xmlns:ViewModel="clr-namespace:Hangman.DesktopClient.ViewModels" xmlns:Model="clr-namespace:Hangman.DesktopClient.Models">
 
     <ViewModel:WordHistoryViewModel.GameHistory>
 

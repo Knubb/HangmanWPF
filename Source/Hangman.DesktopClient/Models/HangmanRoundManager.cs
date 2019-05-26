@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public class HangmanRoundManager
     {

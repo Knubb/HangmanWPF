@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

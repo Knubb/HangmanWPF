@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using HangmanWPF.Enums;
-using HangmanWPF.Interfaces;
+using Hangman.DesktopClient.Enums;
+using Hangman.DesktopClient.Interfaces;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public class HangmanOptionsSettings : IHangmanOptionsSettings
     {

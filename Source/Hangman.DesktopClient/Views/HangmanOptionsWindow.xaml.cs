@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace HangmanWPF.Views
+namespace Hangman.DesktopClient.Views
 {
     /// <summary>
     /// Interaction logic for HangmanOptionsWindow.xaml

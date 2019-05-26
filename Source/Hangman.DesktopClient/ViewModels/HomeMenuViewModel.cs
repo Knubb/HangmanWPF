@@ -1,9 +1,9 @@
-﻿using HangmanWPF.Commands;
-using HangmanWPF.Views;
+﻿using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Enums;
 using System.Windows;
 using System.Windows.Input;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
 
     public class HomeMenuViewModel : BaseViewModel

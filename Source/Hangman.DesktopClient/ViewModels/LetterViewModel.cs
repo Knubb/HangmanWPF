@@ -1,6 +1,6 @@
-﻿using HangmanWPF.Enums;
+﻿using Hangman.DesktopClient.Enums;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     public class LetterViewModel : BaseViewModel
     {

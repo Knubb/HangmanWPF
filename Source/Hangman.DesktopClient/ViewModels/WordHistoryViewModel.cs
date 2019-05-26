@@ -1,9 +1,9 @@
-﻿using HangmanWPF.Commands;
-using HangmanWPF.Models;
+﻿using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Models;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     public class WordHistoryViewModel
     {
@@ -19,7 +19,7 @@ namespace HangmanWPF.ViewModels
 
         private void GetHistory()
         {
-            foreach (var item in RepositoryContainer.GameRecords.Get())
+            foreach (var item in RepositoryContainer.GameRecords.GetAll())
             {
                 GameHistoryCollection.Add(item);
             }

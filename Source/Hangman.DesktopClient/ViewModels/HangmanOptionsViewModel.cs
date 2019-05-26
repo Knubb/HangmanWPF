@@ -1,13 +1,13 @@
-﻿using HangmanWPF.Commands;
-using HangmanWPF.Models;
-using HangmanWPF.Views;
+﻿using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Enums;
+using Hangman.DesktopClient.Models;
+using Hangman.DesktopClient.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media;
-using HangmanWPF.Enums;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
 
     public class HangmanOptionsViewModel : BaseViewModel

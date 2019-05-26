@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace HangmanWPF.Views
+namespace Hangman.DesktopClient.Views
 {
     public partial class HangmanView : UserControl
     {

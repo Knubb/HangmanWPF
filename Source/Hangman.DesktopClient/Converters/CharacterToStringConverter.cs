@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace HangmanWPF.Converters
+namespace Hangman.DesktopClient.Converters
 {
     // Looks weird to be, what's the use of it?
     public class CharacterToStringConverter : IValueConverter

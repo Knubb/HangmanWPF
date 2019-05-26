@@ -1,4 +1,6 @@
-﻿using HangmanWPF.Commands;
+﻿using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Interfaces;
+using Hangman.DesktopClient.Models;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,10 +9,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HangmanWPF.Interfaces;
-using HangmanWPF.Models;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     public class UploadImageSetViewModel : BaseViewModel, IDialogViewModel
     {

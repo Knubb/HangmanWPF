@@ -1,13 +1,13 @@
-﻿using HangmanWPF.Commands;
-using HangmanWPF.Models;
+﻿using Hangman.DesktopClient.Interfaces;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using HangmanWPF.Interfaces;
+using Hangman.DesktopClient.Commands;
+using Hangman.DesktopClient.Models;
 
-namespace HangmanWPF.ViewModels
+namespace Hangman.DesktopClient.ViewModels
 {
     public class SelectImageSetViewModel : BaseViewModel, IDialogViewModel
     {
@@ -35,7 +35,7 @@ namespace HangmanWPF.ViewModels
 
         private void FetchImageSetsAndAddToCollection()
         {
-            foreach (IEnumerable<byte[]> dataset in RepositoryContainer.ImageSets.FetchAllImageSets())
+            foreach (IEnumerable<byte[]> dataset in RepositoryContainer.ImageSets.GetAll())
             {
                 var imagearray = ImageDataTransformHelper.CreateImageCollectionFromData(dataset);
 

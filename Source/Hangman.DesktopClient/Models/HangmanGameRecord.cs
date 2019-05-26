@@ -1,4 +1,4 @@
-﻿namespace HangmanWPF.Models
+﻿namespace Hangman.DesktopClient.Models
 {
     public struct HangmanGameRecord
     {

@@ -1,4 +1,4 @@
-﻿namespace HangmanWPF.Views
+﻿namespace Hangman.DesktopClient.Enums
 {
     public enum Pages
     {

@@ -1,14 +1,14 @@
-﻿using HangmanWPF.Interfaces;
+﻿using Hangman.DesktopClient.Interfaces;
 using System.Collections.Generic;
 using System.Data.SQLite;
 
-namespace HangmanWPF.Repositories
+namespace Hangman.DesktopClient.Repositories
 {
     public class WordRepositorySqLite : IWordRepository
     {
         private const string ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
 
-        public IEnumerable<string> FetchRandomSetOfWords(int size)
+        public IEnumerable<string> GetRandomSet(int size)
         {
             var words = new List<string>();
 

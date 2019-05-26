@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using HangmanWPF.Interfaces;
+﻿using Hangman.DesktopClient.Interfaces;
+using System.Windows;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public class BaseDialogWindow<T> : Window where T : IDialogViewModel
     {

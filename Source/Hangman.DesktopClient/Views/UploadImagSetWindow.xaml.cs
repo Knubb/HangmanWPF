@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace HangmanWPF.Views
+namespace Hangman.DesktopClient.Views
 {
     public partial class UploadImageSetWindow : Window
     {

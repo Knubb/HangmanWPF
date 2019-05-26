@@ -1,4 +1,4 @@
-﻿namespace HangmanWPF.Interfaces
+﻿namespace Hangman.DesktopClient.Interfaces
 {
     public interface ISettings
     {

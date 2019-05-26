@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace HangmanWPF.Models
+namespace Hangman.DesktopClient.Models
 {
     public static class ImageDataTransformHelper
     {

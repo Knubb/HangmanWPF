@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace HangmanWPF.Views
+namespace Hangman.DesktopClient.Views
 {
     /// <summary>
     /// Interaction logic for WordHistoryWindow.xaml
@@ -11,12 +11,6 @@ namespace HangmanWPF.Views
         public WordHistoryWindow()
         {
             InitializeComponent();
-        }
-
-        protected override void OnClosing(CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Hide();
         }
     }
 }

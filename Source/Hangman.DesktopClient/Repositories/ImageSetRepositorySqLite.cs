@@ -1,11 +1,11 @@
-﻿using HangmanWPF.Interfaces;
+﻿using Hangman.DesktopClient.Interfaces;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 
-namespace HangmanWPF.Repositories
+namespace Hangman.DesktopClient.Repositories
 {
-    public class ImageSetRepositorySqLite : IRepository<IEnumerable<byte[]>>
+    public class ImageSetRepositorySqLite : IImageSetRepository
     {
         private const string ConnectionString = "Data Source =.\\HangmanData\\HangmanDataBase.db;Version=3";
         private static readonly IList<string> _images = new[]
@@ -15,7 +15,7 @@ namespace HangmanWPF.Repositories
         };
 
 
-        public IEnumerable<IEnumerable<byte[]>> Get()
+        public IEnumerable<IEnumerable<byte[]>> GetAll()
         {
             var imagesetsdata = new List<List<byte[]>>();
 
@@ -51,7 +51,7 @@ namespace HangmanWPF.Repositories
             }
         }
 
-        public IEnumerable<byte[]> FetchRandomImageSet()
+        public IEnumerable<byte[]> GetRandom()
         {
             var imagedata = new List<byte[]>();
 

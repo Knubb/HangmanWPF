@@ -1,4 +1,4 @@
-﻿<viewModel:HangmanGameViewModel xmlns:viewModel="clr-namespace:HangmanWPF.ViewModels">
+﻿<viewModel:HangmanGameViewModel xmlns:viewModel="clr-namespace:Hangman.DesktopClient.ViewModels">
 
     <viewModel:HangmanGameViewModel.MaskedWord>----------------</viewModel:HangmanGameViewModel.MaskedWord>
     <!-- Why not do a for loop based on ASCII chart to generate letter from A to Z? -->

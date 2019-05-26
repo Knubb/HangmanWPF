@@ -1,4 +1,4 @@
-﻿namespace HangmanWPF.Enums
+﻿namespace Hangman.DesktopClient.Enums
 {
     public enum LetterState
     {
